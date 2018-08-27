@@ -22,3 +22,13 @@ CREATE TABLE bid (
     comapny_id varchar(200) NOT NULL,
     amount varchar(200) NOT NULL
 );
+
+CREATE TABLE venue (
+    id SERIAL PRIMARY KEY,
+    location varchar(200) NOT NULL
+);
+
+CREATE TABLE strategies (
+    id SERIAL PRIMARY KEY,
+    strategy varchar(200) NOT NULL
+);
