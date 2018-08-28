@@ -1,0 +1,25 @@
+{
+  "name": "silverTwilightClub",
+  "version": "1.0.0",
+  "description": "A strategy game of most dire import.",
+  "main": "login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MitchGuth/silverTwilightClub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MitchGuth/silverTwilightClub/issues"
+  },
+  "homepage": "https://github.com/MitchGuth/silverTwilightClub#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0"
+  }
+}
