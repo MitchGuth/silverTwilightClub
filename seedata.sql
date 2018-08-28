@@ -21,7 +21,7 @@ INSERT INTO st_company (id, name, min_cost, chance) VALUES
 INSERT INTO venue (id, location, bonusStrategies) VALUES
 (1, 'The Majestic Ballroom', 'Seduce'),
 (2, 'St. Charles Cathedral', 'Intimidate'),
-(3, 'City Hall', 3, 'Schmooze'),
+(3, 'City Hall', 'Schmooze'),
 (4, 'Broom Closet Boozery', 'Life of the Party')
 
 INSERT INTO strategies (id, strategy) VALUES
