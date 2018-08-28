@@ -8,35 +8,41 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <h1 class="game-title">Silver Twilight Club</h1>
-    <div class="status-bar">
-        <img class="avatar" src="images/st_member.png">
-        <div class="money-stats">
-            <h3>Money: </h3>
-            <p class="current-money">$100.00</p>
+    <div class="app-container">
+        <div class="header">
+            <h1 class="game-title">Silver Twilight Club</h1>
         </div>
-        <div class="power-stats">
-            <h3>Power: </h3>
-            <p class="current-power">10</p>
-        </div>        
-    </div>
-    <div class="content-container">
-        <div class="action-money-field">
-            <h3 class="action-money-title">Choose A Money Action: </h3>
-            <select name="companies-dropdown-menu">
-                <option></option>
-            </select>
+        <div class="status-bar">
+            <img class="avatar" src="images/st_member.png">
+            <div class="player-stats">
+                <div class="money-stats">
+                    <h3>Money: </h3>
+                    <p class="current-values current-money">$100.00</p>
+                </div>
+                <div class="power-stats">
+                    <h3>Power: </h3>
+                    <p class="current-values current-power">10</p>
+                </div>   
+            </div>    
         </div>
-        <div class="user-power-field">
-            <h3 class="action-power-title">Choose A Power Action: </h3>
-            <select name="venues-dropdown-menu" class="dropdown">
-                <option></option>
-            </select>
-            <select name="stratagies-dropdown-menu" class="dropdown">
-                <option></option>
-            </select>
+        <div class="content-container">
+            <div class="action-money-field action-fields">
+                <h3 class="action-money-title">Choose A Money Action:</h3>
+                <select id="company-selector" name="companies-dropdown-menu" class="dropdown">
+                    <option>-- Select A Company --</option>
+                </select>
+            </div>
+            <div class="action-power-field action-fields">
+                <h3 class="action-power-title">Choose A Power Action:</h3>
+                <select id="venue-selector" name="venues-dropdown-menu" class="dropdown">
+                    <option>-- Select A Venue --</option>
+                </select>
+                <select id="strategy-selector" name="stratagies-dropdown-menu" class="dropdown">
+                    <option>-- Select A Strategy --</option>
+                </select>
+            </div>
+            <button class="submit-button" type="submit">Submit Actions</button>
         </div>
-        <button class="submit-button" type="submit">Submit Actions</button>
     </div>
 </body>
 </html>
