@@ -27,7 +27,8 @@ CREATE TABLE bid (
 
 CREATE TABLE venue (
     id SERIAL PRIMARY KEY,
-    location varchar(200) NOT NULL
+    location varchar(200) NOT NULL,
+    bonusStrategies varchar(200) NOT NULL
 );
 
 CREATE TABLE strategies (
