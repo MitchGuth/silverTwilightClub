@@ -1,0 +1,34 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+.status-bar {
+    display: flex;
+    max-height: 20%;
+}
+.avatar {
+    max-height: 10em;
+    max-width: 10em;
+    
+}
+.content-container {
+    padding: 4em;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.dropdown {
+    padding-left: 5em;
+    padding-right: 5em;
+    max-width: 40%;
+}
+.action-money-field {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.action-power-field {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
