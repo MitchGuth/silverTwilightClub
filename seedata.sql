@@ -17,3 +17,15 @@ INSERT INTO st_company (id, name, min_cost, chance) VALUES
 (2, 'Doylycott Napkins Ltd.', 400, 20),
 (3, 'P.C. Norris, LTD', 400, 30),
 (4, 'Tango Cash Mechanica', 600, 40);
+
+INSERT INTO venue (id, location, bonusStrategies) VALUES
+(1, 'The Majestic Ballroom', 'Seduce'),
+(2, 'St. Charles Cathedral', 'Intimidate'),
+(3, 'City Hall', 'Schmooze'),
+(4, 'Broom Closet Boozery', 'Life of the Party')
+
+INSERT INTO strategies (id, strategy) VALUES
+(1, 'Intimidate'),
+(2, 'Seduce'),
+(3, 'Schmooze'),
+(4, 'Life of the party')

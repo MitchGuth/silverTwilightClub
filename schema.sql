@@ -24,3 +24,14 @@ CREATE TABLE st_bid (
     comapny_id INTEGER REFERENCES st_company(id),
     amount varchar(200) NOT NULL
 );
+
+CREATE TABLE venue (
+    id SERIAL PRIMARY KEY,
+    location varchar(200) NOT NULL,
+    bonusStrategies varchar(200) NOT NULL
+);
+
+CREATE TABLE strategies (
+    id SERIAL PRIMARY KEY,
+    strategy varchar(200) NOT NULL
+);
