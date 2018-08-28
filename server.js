@@ -1,29 +1,11 @@
 const express = require('express');
+const pg = require('pg-promise')();
 const jwt = require('jsonwebtoken');
-const signature = '1mm@_s3cr3t';
-let server = express();
+const signature = process.env.JWTSECRET;
+const server = express();
+const dbCongfig = 'postgres://nat@localhost:5432/silvertwilight';
+const db = pg(dbCongfig);
 
-
-let users = [
-    { userId: 1,
-    power: 10,
-    money: 100,
-    name: 'Nat',
-    email: 'nat@natsharpe.com',
-    password: 'mellon' },
-    { userId: 2,
-    power: 30,
-    money: 1400,
-    name: 'Joe',
-    email: 'joe@bigboss.com',
-    password: 'riddle' },
-    { userId: 3,
-    power: 20,
-    money: 3000,
-    name: 'Kirk',
-    email: 'kirk@electric.com',
-    password: 'fishy' }
-];
 
 let readBody = (req, callback) => {
     let body = '';
@@ -37,28 +19,30 @@ let readBody = (req, callback) => {
 
 let getStats = (req, res) => {
     let userId = req.user.userId;
-    let userStats = users.filter(user => userId == user.userId);
-    res.send(JSON.stringify(userStats));
+    db.one(`select power, money from st_user_stat where user_id = '${userId}';`)
+    .then(userStats => {
+        res.send(userStats);
+    });
 }
 
 let createToken = (req, res) => {
     readBody(req, (body) => {
         let loginInfo = JSON.parse(body);
-        let email = loginInfo.email;
-        let password = loginInfo.password;
-        let thisUser = users.find(user => email === user.email);
-        if (thisUser && password === thisUser.password) {
-            let token = jwt.sign(
-                { userId: thisUser.userId },
-                signature,
-                { expiresIn: '7d'}
-            );
-            res.send(token);
-        }
-        else {
-            res.end("You must create an account");
-        }
-
+        console.log(loginInfo)
+        db.one("select id, password from st_players where email = '" + loginInfo.email + "';")
+        .then(playerInfo => {
+            if (loginInfo.password === playerInfo.password) {
+                let token = jwt.sign(
+                    { userId: playerInfo.id },
+                    signature,
+                    { expiresIn: '7d'}
+                );
+                res.send(token);
+            }
+            else {
+                res.end("You must create an account");
+            }
+        });
     });
 }
 

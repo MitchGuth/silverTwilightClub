@@ -20,6 +20,7 @@
   "homepage": "https://github.com/MitchGuth/silverTwilightClub#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "jsonwebtoken": "^8.3.0"
+    "jsonwebtoken": "^8.3.0",
+    "pg-promise": "^8.4.6"
   }
 }
