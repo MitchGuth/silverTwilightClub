@@ -7,7 +7,7 @@ CREATE TABLE st_player (
 
 CREATE TABLE st_player_stat (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES st_players(id),
+    user_id INTEGER REFERENCES st_player(id),
     power varchar(200) NOT NULL,
     money varchar(200) NOT NULL
 );
@@ -31,7 +31,7 @@ CREATE TABLE st_venue (
     bonusStrategies varchar(200) NOT NULL
 );
 
-CREATE TABLE st_strategies (
+CREATE TABLE st_strategy (
     id SERIAL PRIMARY KEY,
     strategy varchar(200) NOT NULL
 );
