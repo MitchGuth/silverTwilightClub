@@ -1,8 +1,8 @@
-let urlAPI = "http://127.0.0.1:5000";
+let urlAPI = "http://127.0.0.1:5000/";
 
 let login = loginInfo => {
     console.log(loginInfo)
-    postPromise = fetch(urlAPI, 
+    postPromise = fetch(`${urlAPI}login`, 
         {
             method: "post",
             headers: {'content-type':'application/json'},
@@ -23,7 +23,7 @@ let clickLogin = event => {
     let emailAddress = document.querySelector('[name="emailAddress"]');
     let password = document.querySelector('[name="password"]');
     let loginInfo = {
-        'emailAddress': emailAddress.value,
+        'email': emailAddress.value,
         'password': password.value
     };
     console.log(loginInfo);

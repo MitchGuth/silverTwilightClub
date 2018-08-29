@@ -67,6 +67,12 @@ let validateToken = (req, res, next) => {
 let serverInfo = (req,res) => {
     res.end('You have hit the API server but you did not use a valid endpoint, or supply valid tokens. Buh bye.')
 }
+server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
 server.get(('/stats/'), validateToken, getStats);
 server.post('/login', checkLogin);
 server.get('/', serverInfo);
