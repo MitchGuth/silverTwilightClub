@@ -6,7 +6,7 @@ const server = express();
 const dbCongfig = 'postgres://nyarlathotep@localhost:5432/silvertwilight';
 const db = pg(dbCongfig);
 
-
+// make me resilient to empty body
 let readBody = (req, callback) => {
     let body = '';
     req.on('data', (chunk) => {
@@ -49,6 +49,43 @@ let checkQueue = (req, res) => {
         res.send('STATS FAIL');
     });
 }
+
+let createUser = (req,res) => {
+    readBody(req, (body) => {
+        let createInfo = JSON.parse(body);
+        let myEmail = createInfo.email;
+        let myID;
+        db.none(`INSERT INTO st_player(name, email, password)
+        VALUES ('${createInfo.name}','${createInfo.email}','${createInfo.password}');`)
+        .then( () => {
+            console.log('I inserted things.');
+            db.one(`SELECT id FROM st_player WHERE email = '${createInfo.email}';`)
+            .then (playerID => {
+                myID = playerID.id;
+                console.log("Player ID is: " + myID);
+                    db.none(`INSERT INTO st_player_stat(user_id, power, money) VALUES (${playerID.id},10,100);`)
+                    .then( () => {
+                        console.log("Fuck yeah!");
+                        res.end('SUCCESS');
+                    })
+                    .catch(e => {
+                        console.log('FAIL');
+                        console.log(e);
+                    })
+            })
+            .catch(e => {
+                console.log('FAIL');
+                console.log(e);
+            })
+        })
+        .catch(e => {
+            console.log('FAIL');
+            console.log(e);
+        });
+        
+    });
+}
+
 
 let doLogin = (req, res) => {
     readBody(req, (body) => {
@@ -108,6 +145,7 @@ server.use(function(req, res, next) {
 server.get('/stats/', validateToken, getStats);
 server.get('/checkQueue/', validateToken, checkQueue);
 server.post('/login', doLogin);
+server.post('/createUser', createUser);
 server.get('/', serverInfo);
 
 console.log('Server listening on http://localhost:5000');

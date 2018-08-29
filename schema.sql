@@ -1,7 +1,7 @@
 CREATE TABLE st_player (
     id SERIAL PRIMARY KEY,
     name  varchar(200) NOT NULL,
-    email varchar(200) NOT NULL,
+    email varchar(200) UNIQUE NOT NULL,
     password varchar(200) NOT NULL
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE st_venue (
 );
 
 CREATE TABLE st_strategy (
-    id SERIAL PRIMARY KEY,
+    id integer PRIMARY KEY,
     strategy varchar(200) NOT NULL
 );
 
@@ -43,9 +43,3 @@ CREATE TABLE st_power_queue (
     venue_id INTEGER,
     strategy_id INTEGER 
 );
-
-SELECT *
-FROM st_money_queue
-INNER JOIN st_power_queue
-ON st_money_queue.user_id = st_power_queue.user_id
-WHERE st_money_queue.user_id = 1;

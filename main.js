@@ -62,7 +62,7 @@ let showLoginPage = event => {
 
 
 let submitAccount = accountInfo => {
-    postPromise = fetch(`${urlAPI}account`, 
+    postPromise = fetch(`${urlAPI}createUser`, 
         {
             method: "post",
             // mode: "no-cors",
@@ -94,9 +94,9 @@ let captureAccountInfo = event => {
     let password = document.querySelector('[name="account-password"]');
     let name = document.querySelector('[name="account-name"]');
     let accountInfo = {
-        'account-email': email.value,
-        'account-password': password.value,
-        'account-name': name.value
+        'email': email.value,
+        'password': password.value,
+        'name': name.value
     };
     submitAccount(accountInfo);
 };
