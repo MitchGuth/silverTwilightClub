@@ -1,21 +1,22 @@
 let urlAPI = "http://127.0.0.1:5000/";
 
 let login = loginInfo => {
-    console.log(loginInfo)
     postPromise = fetch(`${urlAPI}login`, 
         {
             method: "post",
+            // mode: "no-cors",
             headers: {'content-type':'application/json'},
             body: JSON.stringify(loginInfo)
-        }
-    );
+        });
     postPromise.catch(e => {
         console.log(e.message);
     });
-    postPromise.then(
-        function(response) {
-            console.log(response);
-        });
+    console.log(postPromise);
+    postPromise.then(function(response) {
+        response.text().then(function(text) {
+            console.log(text); 
+          });
+    });
 }
 
 let clickLogin = event => {
@@ -26,7 +27,6 @@ let clickLogin = event => {
         'email': emailAddress.value,
         'password': password.value
     };
-    console.log(loginInfo);
     login(loginInfo);
 };
 
