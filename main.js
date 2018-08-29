@@ -1,4 +1,6 @@
 let urlAPI = "http://127.0.0.1:5000/";
+let token = localStorage.getItem('silvertwilight');
+
 
 let login = loginInfo => {
     postPromise = fetch(`${urlAPI}login`, 
@@ -21,9 +23,9 @@ let login = loginInfo => {
                 console.log('Storing Your Token...');
                 localStorage.setItem('silvertwilight', text);
             }
-          });
+        });
     });
-}
+};
 
 let clickLogin = event => {
     event.preventDefault();
@@ -36,5 +38,22 @@ let clickLogin = event => {
     login(loginInfo);
 };
 
-let submitButtton = document.querySelector('.btn');
-submitButtton.addEventListener('click', clickLogin);
+let clickFirstLogin = event => {
+    let landingPage = document.querySelector('.landing-page');
+    let loginPage = document.querySelector('.login-page');
+    event.preventDefault();
+    if (token) {
+        // run getStats function
+    } else {
+        landingPage.classList.toggle('hidden');
+        loginPage.classList.toggle('hidden');
+    }
+};
+
+let firstLoginButtton = document.querySelector('.login-btn');
+let accountButtton = document.querySelector('.account-btn');
+let loginButtton = document.querySelector('.submit-btn');
+
+firstLoginButtton.addEventListener('click', clickFirstLogin);
+// accountButtton.addEventListener('click', clickAccount);
+loginButtton.addEventListener('click', clickLogin);
