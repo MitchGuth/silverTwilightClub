@@ -3,7 +3,7 @@ const pg = require('pg-promise')();
 const jwt = require('jsonwebtoken');
 const signature = process.env.JWTSECRET;
 const server = express();
-const dbCongfig = 'postgres://nat@localhost:5432/silvertwilight';
+const dbCongfig = 'postgres://nyarlathotep@localhost:5432/silvertwilight';
 const db = pg(dbCongfig);
 
 
@@ -25,7 +25,7 @@ let getStats = (req, res) => {
     });
 }
 
-let createToken = (req, res) => {
+let checkLogin = (req, res) => {
     readBody(req, (body) => {
         let loginInfo = JSON.parse(body);
         console.log(loginInfo)
@@ -40,7 +40,7 @@ let createToken = (req, res) => {
                 res.send(token);
             }
             else {
-                res.end("You must create an account");
+                res.end("LOGIN FAIL");
             }
         });
     });
@@ -60,11 +60,16 @@ let validateToken = (req, res, next) => {
         req.user = payload;
         next();
     } else {
-        res.end("BEGONE YOU FILTHY PEASANT!");
+        res.end("LOGIN FAIL");
     }
 };
 
+let serverInfo = (req,res) => {
+    res.end('You have hit the API server but you did not use a valid endpoint, or supply valid tokens. Buh bye.')
+}
 server.get(('/stats/'), validateToken, getStats);
-server.post('/login', createToken);
+server.post('/login', checkLogin);
+server.get('/', serverInfo);
 
+console.log('Server listening on http://localhost:5000');
 server.listen(5000);
