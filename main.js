@@ -11,7 +11,7 @@ let loginPage = document.querySelector('.login-page');
 let accountPage = document.querySelector('.account-page');
 let enterPage = document.querySelector('.enter-page');
 
-let login = loginInfo => {
+let submitLogin = loginInfo => {
     console.log('working')
     postPromise = fetch(`${urlAPI}login`, 
         {
@@ -39,7 +39,29 @@ let login = loginInfo => {
     });
 };
 
-let createAccount = accountInfo => {
+let captureLoginInfo = event => {
+    event.preventDefault();
+    let email = document.querySelector('[name="email"]');
+    let password = document.querySelector('[name="password"]');
+    let loginInfo = {
+        'email': email.value,
+        'password': password.value
+    };
+    submitLogin(loginInfo);
+};
+
+let showLoginPage = event => {
+    event.preventDefault();
+    if (token) {
+        enterPage.classList.toggle('hidden');
+    } else {
+        landingPage.classList.toggle('hidden');
+        loginPage.classList.toggle('hidden');
+    }
+};
+
+
+let submitAccount = accountInfo => {
     postPromise = fetch(`${urlAPI}account`, 
         {
             method: "post",
@@ -66,28 +88,7 @@ let createAccount = accountInfo => {
     });
 };
 
-let clickSubmitLogin = event => {
-    event.preventDefault();
-    let email = document.querySelector('[name="email"]');
-    let password = document.querySelector('[name="password"]');
-    let loginInfo = {
-        'email': email.value,
-        'password': password.value
-    };
-    login(loginInfo);
-};
-
-let clickFirstLogin = event => {
-    event.preventDefault();
-    if (token) {
-        enterPage.classList.toggle('hidden');
-    } else {
-        landingPage.classList.toggle('hidden');
-        loginPage.classList.toggle('hidden');
-    }
-};
-
-let clickSubmitAccount = event => {
+let captureAccountInfo = event => {
     event.preventDefault();
     let email = document.querySelector('[name="account-email"]');
     let password = document.querySelector('[name="account-password"]');
@@ -97,17 +98,17 @@ let clickSubmitAccount = event => {
         'account-password': password.value,
         'account-name': name.value
     };
-    createAccount(accountInfo);
+    submitAccount(accountInfo);
 };
 
-let clickAccount = event => {
+let showAccountPage = event => {
     event.preventDefault();
     landingPage.classList.toggle('hidden');
     accountPage.classList.toggle('hidden');
 };
 
-firstLoginButton.addEventListener('click', clickFirstLogin);
-accountButtton.addEventListener('click', clickAccount);
-submitLoginButton.addEventListener('click', clickSubmitLogin);
-submitAccountButton.addEventListener('click', clickSubmitAccount);
+firstLoginButton.addEventListener('click', showLoginPage);
+accountButtton.addEventListener('click', showAccountPage);
+submitLoginButton.addEventListener('click', captureLoginInfo);
+submitAccountButton.addEventListener('click', captureAccountInfo);
 // enterButton.addEventListener('click', getStats);
