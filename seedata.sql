@@ -1,9 +1,9 @@
 INSERT INTO st_player ( id, name, email, password ) VALUES
 (1, 'Lord Kensington', 'blarg@sect.net', 'explode123'),
-(2, 'Tribeca Clarette', 'zobie@sect.net', 'apples123'),
-(3, 'Kerrylon Varnish', 'notzobie@sect.net', 'vavavoom6433'),
+(2, 'Tribeca Clarette', 'zombie@sect.net', 'apples123'),
+(3, 'Kerrylon Varnish', 'monkey@sect.net', 'superduper2'),
 (4, 'Fontleroy Devonshire', 'dargfark@sect.net', 'noonygargar'),
-(5, 'Reptilicus Voortman', 'chum@sect.net', 'jarjarbinks123');
+(5, 'Reptilicus Voortman', 'idiot@sect.net', 'jarjarbinks4evr');
 
 INSERT INTO st_player_stat (user_id, power, money) VALUES
 (1, 10, 1000),
@@ -29,3 +29,11 @@ INSERT INTO st_strategy (id, strategy) VALUES
 (2, 'Seduce'),
 (3, 'Schmooze'),
 (4, 'Life of the party');
+
+INSERT INTO st_money_queue (action_id, user_id, company_id, bid_amount) VALUES
+(1, 1, 1, 500),
+(1, 2, 1, 400);
+
+INSERT INTO st_power_queue (action_id, user_id, venue_id, strategy_id) VALUES
+(1, 1, 1, 3),
+(1, 2, 1, 2);

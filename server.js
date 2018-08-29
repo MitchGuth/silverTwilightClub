@@ -36,6 +36,20 @@ let getStats = (req, res) => {
     });
 }
 
+let checkQueue = (req, res) => {
+    // req.user is set by validateToken
+    let userId = req.user.userId;
+    db.one(`SELECT  FROM st_action_queue WHERE player_id=${userId}`)
+    .then(userStats => {
+        res.send(userStats);
+    })
+    .catch(function(error) {
+        console.log('Error fetching stats: ' + userID);
+        console.log(error);
+        res.send('STATS FAIL');
+    });
+}
+
 let doLogin = (req, res) => {
     readBody(req, (body) => {
         let loginInfo = JSON.parse(body);
@@ -91,7 +105,8 @@ server.use(function(req, res, next) {
     next();
 });
 
-server.get(('/stats/'), validateToken, getStats);
+server.get('/stats/', validateToken, getStats);
+server.get('/checkQueue/', validateToken, checkQueue);
 server.post('/login', doLogin);
 server.get('/', serverInfo);
 
