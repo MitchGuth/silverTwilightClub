@@ -1,11 +1,11 @@
-CREATE TABLE st_players (
+CREATE TABLE st_player (
     id SERIAL PRIMARY KEY,
     name  varchar(200) NOT NULL,
     email varchar(200) NOT NULL,
     password varchar(200) NOT NULL
 );
 
-CREATE TABLE st_user_stat (
+CREATE TABLE st_player_stat (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES st_players(id),
     power varchar(200) NOT NULL,
