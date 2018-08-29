@@ -14,8 +14,13 @@ let login = loginInfo => {
     // console.log(postPromise);
     postPromise.then(function(response) {
         response.text().then(function(text) {
-            console.log('Storing Your Token...');
-            localStorage.setItem('silvertwilight', text);
+            if (text === "LOGIN FAIL") {
+                // do something in the DOM and say "You suck."
+                console.log("bok bok bok");
+            } else {
+                console.log('Storing Your Token...');
+                localStorage.setItem('silvertwilight', text);
+            }
           });
     });
 }
