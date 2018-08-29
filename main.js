@@ -11,10 +11,11 @@ let login = loginInfo => {
     postPromise.catch(e => {
         console.log(e.message);
     });
-    console.log(postPromise);
+    // console.log(postPromise);
     postPromise.then(function(response) {
         response.text().then(function(text) {
-            console.log(text); 
+            console.log('Storing Your Token...');
+            localStorage.setItem('silvertwilight', text);
           });
     });
 }
