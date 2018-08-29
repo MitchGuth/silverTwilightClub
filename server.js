@@ -25,7 +25,7 @@ let getStats = (req, res) => {
     });
 }
 
-let checkLogin = (req, res) => {
+let doLogin = (req, res) => {
     readBody(req, (body) => {
         let loginInfo = JSON.parse(body);
         console.log(loginInfo)
@@ -41,8 +41,12 @@ let checkLogin = (req, res) => {
                 res.end(token);
             }
             else {
-                res.end("LOGIN FAIL");
+                res.end('LOGIN FAIL');
             }
+        })
+        .catch(function(error) {
+            console.log('The login process has failed. ' +error );
+            res.end('LOGIN FAIL');
         });
     });
 }
@@ -61,7 +65,7 @@ let validateToken = (req, res, next) => {
         req.user = payload;
         next();
     } else {
-        res.end("LOGIN FAIL");
+        res.end('LOGIN FAIL');
     }
 };
 
@@ -76,7 +80,7 @@ server.use(function(req, res, next) {
 });
 
 server.get(('/stats/'), validateToken, getStats);
-server.post('/login', checkLogin);
+server.post('/login', doLogin);
 server.get('/', serverInfo);
 
 console.log('Server listening on http://localhost:5000');

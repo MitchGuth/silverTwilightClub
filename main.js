@@ -11,10 +11,16 @@ let login = loginInfo => {
     postPromise.catch(e => {
         console.log(e.message);
     });
-    console.log(postPromise);
+    // console.log(postPromise);
     postPromise.then(function(response) {
         response.text().then(function(text) {
-            console.log(text); 
+            if (text === "LOGIN FAIL") {
+                // do something in the DOM and say "You suck."
+                console.log("bok bok bok");
+            } else {
+                console.log('Storing Your Token...');
+                localStorage.setItem('silvertwilight', text);
+            }
           });
     });
 }
