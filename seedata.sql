@@ -1,11 +1,11 @@
-INSERT INTO st_players ( id, name, email, password ) VALUES
+INSERT INTO st_player ( id, name, email, password ) VALUES
 (1, 'Lord Kensington', 'blarg@sect.net', 'explode123'),
 (2, 'Tribeca Clarette', 'zobie@sect.net', 'apples123'),
 (3, 'Kerrylon Varnish', 'notzobie@sect.net', 'vavavoom6433'),
 (4, 'Fontleroy Devonshire', 'dargfark@sect.net', 'noonygargar'),
 (5, 'Reptilicus Voortman', 'chum@sect.net', 'jarjarbinks123');
 
-INSERT INTO st_user_stat (user_id, power, money) VALUES
+INSERT INTO st_player_stat (user_id, power, money) VALUES
 (1, 10, 1000),
 (2, 9, 2000),
 (3, 8, 0),
