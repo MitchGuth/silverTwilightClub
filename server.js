@@ -18,10 +18,21 @@ let readBody = (req, callback) => {
 };
 
 let getStats = (req, res) => {
+    // req.user is set by validateToken
     let userId = req.user.userId;
-    db.one(`select power, money from st_user_stat where user_id = '${userId}';`)
+    db.one(`SELECT st_player.id, 
+    st_player.name, st_player_stat.power, 
+    st_player_stat.money 
+    FROM st_player 
+    INNER JOIN st_player_stat 
+    ON st_player.id = st_player_stat.user_id WHERE st_player.id=${userId}`)
     .then(userStats => {
         res.send(userStats);
+    })
+    .catch(function(error) {
+        console.log('Error fetching stats: ' + userID);
+        console.log(error);
+        res.send('STATS FAIL');
     });
 }
 
@@ -29,15 +40,15 @@ let doLogin = (req, res) => {
     readBody(req, (body) => {
         let loginInfo = JSON.parse(body);
         console.log(loginInfo)
-        db.one("select id, password from st_players where email = '" + loginInfo.email + "';")
+        db.one("select id, password from st_player where email = '" + loginInfo.email + "';")
         .then(playerInfo => {
             if (loginInfo.password === playerInfo.password) {
                 let token = jwt.sign(
                     { userId: playerInfo.id },
                     signature,
-                    { expiresIn: '7d'}
+                    { expiresIn: '2d'}
                 );
-                console.log('Creating token for ' + playerInfo.id + ' /n ' + token);
+                console.log('Creating token for ' + playerInfo.id);
                 res.end(token);
             }
             else {
@@ -45,7 +56,8 @@ let doLogin = (req, res) => {
             }
         })
         .catch(function(error) {
-            console.log('The login process has failed. ' +error );
+            console.log('The login process has failed:');
+            console.log(error);
             res.end('LOGIN FAIL');
         });
     });

@@ -24,7 +24,7 @@ INSERT INTO st_venue (id, location, bonusStrategies) VALUES
 (3, 'City Hall', 3),
 (4, 'Broom Closet Boozery', 4);
 
-INSERT INTO st_strategies (id, strategy) VALUES
+INSERT INTO st_strategy (id, strategy) VALUES
 (1, 'Intimidate'),
 (2, 'Seduce'),
 (3, 'Schmooze'),
