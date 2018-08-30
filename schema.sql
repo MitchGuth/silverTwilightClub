@@ -26,7 +26,7 @@ CREATE TABLE st_venue (
 );
 
 CREATE TABLE st_strategy (
-    id integer PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     strategy varchar(200) NOT NULL
 );
 
@@ -42,4 +42,9 @@ CREATE TABLE st_power_queue (
     user_id INTEGER REFERENCES st_player(id),
     venue_id INTEGER,
     strategy_id INTEGER 
+);
+
+CREATE TABLE st_news (
+    user_id INTEGER REFERENCES st_player(id),
+    description varchar(255)
 );
