@@ -50,7 +50,7 @@ let retrieveCompanies = () => {
         })
         .then(function(response) {
         if (response === null){
-        console.log('error no stats');
+        console.log('error no companies');
         }
         else {
             console.log(response);
@@ -62,6 +62,35 @@ let retrieveCompanies = () => {
                 companyList.appendChild(option);
                 document.getElementById(`company${index}`).text =`${company} - Min Cost: ${minCost}`;
                 document.getElementById(`company${index}`).value = `${response[index]}`;
+            }            
+        }
+    });
+};
+
+let retrieveVenues = () => {
+    let venueList = document.querySelector('[name="venues-dropdown-menu"]'); 
+    getPromise = fetch(`${urlAPI}venueList/?token=${token}`);
+    getPromise.catch(e => {
+        console.log(e.message);
+    });
+    getPromise
+        .then(function(response){
+        //returns just the body of response
+        return response.json()
+        })
+        .then(function(response) {
+        if (response === null){
+        console.log('error no venues');
+        }
+        else {
+            console.log(response);
+            for (index = 0; index < response.length; index++) {
+                let option = document.createElement("OPTION");
+                let venue = response[index].location;
+                option.id = `venue${index}`;
+                venueList.appendChild(option);
+                document.getElementById(`venue${index}`).text =`${venue}`;
+                document.getElementById(`venue${index}`).value = `${venue}`;
             }            
         }
     });
@@ -81,7 +110,7 @@ let retrieveStrategies = () => {
         })
         .then(function(response) {
         if (response === null){
-        console.log('error no stats');
+        console.log('error no strategies');
         }
         else {
             console.log(response);
@@ -102,6 +131,7 @@ let writeGamePage = () => {
     gamePage.classList.toggle('hidden');
     retrieveStats();
     retrieveCompanies();
+    retrieveVenues();
     retrieveStrategies();
 };
 let submitLogin = loginInfo => {
