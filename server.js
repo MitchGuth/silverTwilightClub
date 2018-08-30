@@ -91,6 +91,26 @@ let createUser = (req,res) => {
     });
 };
 
+// { money: { actionId: 1, company: 1, bid: 12345 },
+//   power: { actionId: 1, venue: 2, strategy: 3 } 
+// }
+let createAction = (req, res) => {
+    let userId = req.user.userId;
+    readBody(req, (body) => {
+        let action = JSON.parse(body);
+        console.log(action);
+        db.none(`INSERT INTO st_money_queue(action_id, user_id, company_id, bid_amount) VALUES
+        (${action.money.actionId},${userId},${action.money.company},${action.money.bid});`)
+        .then( ()=> {
+            db.none(`INSERT INTO st_power_queue(action_id, user_id, venue_id, strategy_id) VALUES
+            (${action.power.actionId},${userId},${action.power.venue},${action.power.strategy});`);
+        })
+        .catch(error => {
+            console.log('Action insertion error' + error);
+        })
+        res.end('SUCCESS');
+    });
+}
 
 let doLogin = (req, res) => {
     readBody(req, (body) => {
@@ -184,6 +204,7 @@ server.get('/venueList/', validateToken, venueList);
 server.get('/stratList/', validateToken, stratList);
 server.post('/login', doLogin);
 server.post('/createUser', createUser);
+server.post('/createAction/', validateToken, createAction);
 server.get('/', serverInfo);
 
 
