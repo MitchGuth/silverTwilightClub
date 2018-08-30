@@ -34,7 +34,7 @@ let getStats = (req, res) => {
         console.log(error);
         res.send('STATS FAIL');
     });
-}
+};
 
 let checkQueue = (req, res) => {
     // req.user is set by validateToken
@@ -53,12 +53,11 @@ let checkQueue = (req, res) => {
         console.log(error);
         res.send('QUEUE FAIL');
     });
-}
+};
 
 let createUser = (req,res) => {
     readBody(req, (body) => {
         let createInfo = JSON.parse(body);
-        let myEmail = createInfo.email;
         let myID;
         db.none(`INSERT INTO st_player(name, email, password)
         VALUES ('${createInfo.name}','${createInfo.email}','${createInfo.password}');`)
@@ -70,7 +69,7 @@ let createUser = (req,res) => {
                 console.log("Player ID is: " + myID);
                     db.none(`INSERT INTO st_player_stat(user_id, power, money) VALUES (${playerID.id},10,100);`)
                     .then( () => {
-                        console.log("Fuck yeah!");
+                        console.log("Player given ID and default stats");
                         res.end('SUCCESS');
                     })
                     .catch(e => {
@@ -89,7 +88,7 @@ let createUser = (req,res) => {
         });
         
     });
-}
+};
 
 
 let doLogin = (req, res) => {
@@ -139,7 +138,7 @@ let validateToken = (req, res, next) => {
 
 let serverInfo = (req, res, next) => {
     res.end('You have hit the API server but you did not use a valid endpoint, or supply valid tokens. Buh bye.')
-}
+};
 
 server.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
