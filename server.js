@@ -118,6 +118,15 @@ let doLogin = (req, res) => {
     });
 }
 
+let companyList = (req, res, next) => {
+    try {
+        const companies = await db.any('SELECT name, min_cost FROM st_company;');
+        console.log(companies);
+    } 
+    catch(e) {
+        console.log("splode");
+    }
+}
 let validateToken = (req, res, next) => {
     let token = req.query.token;
     let isValid = false;
@@ -151,9 +160,11 @@ server.use(function(req, res, next) {
 //get list of strategies
 server.get('/stats/', validateToken, getStats);
 server.get('/checkQueue/', validateToken, checkQueue);
+server.get('companyList/', validateToken, companyList);
 server.post('/login', doLogin);
 server.post('/createUser', createUser);
 server.get('/', serverInfo);
+
 
 console.log('Server listening on http://localhost:5000');
 server.listen(5000);
