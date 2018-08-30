@@ -140,7 +140,7 @@ let doLogin = (req, res) => {
 }
 
 let companyList = (req, res, next) => {
-    db.any('SELECT name, min_cost FROM st_company;')
+    db.any('SELECT id, name, min_cost FROM st_company;')
     .then(function(data) {
         res.end(JSON.stringify(data));
     })
@@ -150,7 +150,7 @@ let companyList = (req, res, next) => {
 }
 
 let venueList = (req, res, next) => {
-    db.any('SELECT location FROM st_venue;')
+    db.any('SELECT id, location FROM st_venue;')
     .then(function(data) {
         res.end(JSON.stringify(data));
     })
@@ -160,7 +160,7 @@ let venueList = (req, res, next) => {
 }
 
 let stratList = (req, res, next) => {
-    db.any('SELECT strategy FROM st_strategy;')
+    db.any('SELECT id, strategy FROM st_strategy;')
     .then(function(data) {
         res.end(JSON.stringify(data));
     })
