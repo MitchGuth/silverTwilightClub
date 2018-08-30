@@ -15,8 +15,6 @@ let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
 
 let retrieveStats = () => {
-    enterPage.classList.toggle('hidden');
-    gamePage.classList.toggle('hidden');
     let currentMoney = document.querySelector('.current-money');
     let currentPower = document.querySelector('.current-power');
     getPromise = fetch(`${urlAPI}stats/?token=${token}`,
@@ -42,6 +40,45 @@ let retrieveStats = () => {
     });
 };
 
+let retrieveCompanies = () => {
+    let companyList = document.querySelector('[name="companies-dropdown-menu"]'); 
+    getPromise = fetch(`${urlAPI}companyList/?token=${token}`,
+        {
+            method: "get"
+        });
+    getPromise.catch(e => {
+        console.log(e.message);
+    });
+    getPromise
+        .then(function(response){
+        //returns just the body of response
+        return response.json()
+        })
+        .then(function(response) {
+        if (response === null){
+        console.log('error no stats');
+        }
+        else {
+            console.log(response);
+            for (index = 0; index < response.length; index++) {
+                let option = document.createElement("OPTION");
+                let company = response[index].name;
+                let minCost = response[index].min_cost;
+                option.id = `company${index}`;
+                companyList.appendChild(option);
+                document.getElementById(`company${index}`).text =`${company} - Min Cost: ${minCost}`;
+                document.getElementById(`company${index}`).value = `${response[index]}`;
+            }            
+        }
+    });
+};
+
+let writeGamePage = () => {
+    enterPage.classList.toggle('hidden');
+    gamePage.classList.toggle('hidden');
+    retrieveStats();
+    retrieveCompanies();
+};
 let submitLogin = loginInfo => {
     console.log('working')
     postPromise = fetch(`${urlAPI}login`, 
@@ -147,4 +184,4 @@ firstLoginButton.addEventListener('click', showLoginPage);
 accountButtton.addEventListener('click', showAccountPage);
 submitLoginButton.addEventListener('click', captureLoginInfo);
 submitAccountButton.addEventListener('click', captureAccountInfo);
-enterButton.addEventListener('click', retrieveStats);
+enterButton.addEventListener('click', writeGamePage);
