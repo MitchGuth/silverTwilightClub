@@ -5,11 +5,39 @@ let firstLoginButton = document.querySelector('.login-btn');
 let accountButtton = document.querySelector('.account-btn');
 let submitLoginButton = document.querySelector('.submit-login-btn');
 let submitAccountButton = document.querySelector('.submit-account-btn');
+let enterButton = document.querySelector('.enter-btn');
+
 // Select pages to hide or show
 let landingPage = document.querySelector('.landing-page');
 let loginPage = document.querySelector('.login-page');
 let accountPage = document.querySelector('.account-page');
 let enterPage = document.querySelector('.enter-page');
+let gamePage = document.querySelector('.game-page');
+
+let retrieveStats = () => {
+  enterPage.classList.toggle('hidden');
+  gamePage.classList.toggle('hidden');
+  let currentMoney = document.querySelector('current-money');
+  let currentPower = document.querySelector('current-power');
+  getPromise = fetch(`${urlAPI}stats/?token=${token}`,
+  {
+    method: "get"
+  });
+  getPromise.catch(e => {
+    console.log(e.message);
+  });
+  getPromise.then(function(response) {
+    JSON.parse(response).then(function(response) {
+      if (response === ''){
+        console.log('error no stats');
+      }
+      else{
+        currentMoney.textContent(response.money);
+        currentPower.setItem(response.power);
+      }
+    });
+  });
+};
 
 let submitLogin = loginInfo => {
     console.log('working')
@@ -116,4 +144,4 @@ firstLoginButton.addEventListener('click', showLoginPage);
 accountButtton.addEventListener('click', showAccountPage);
 submitLoginButton.addEventListener('click', captureLoginInfo);
 submitAccountButton.addEventListener('click', captureAccountInfo);
-// enterButton.addEventListener('click', getStats);
+enterButton.addEventListener('click', retrieveStats);
