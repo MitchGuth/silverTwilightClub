@@ -47,19 +47,24 @@ let captureLoginInfo = event => {
         'email': email.value,
         'password': password.value
     };
-    submitLogin(loginInfo);
+    let fieldEmpty = Object.values(loginInfo).includes('');
+    if(fieldEmpty) {
+        alert("Please fill out all fields");
+    } else {
+        submitLogin(loginInfo);
+    }
 };
 
 let showLoginPage = event => {
     event.preventDefault();
     if (token) {
+        landingPage.classList.toggle('hidden');
         enterPage.classList.toggle('hidden');
     } else {
         landingPage.classList.toggle('hidden');
         loginPage.classList.toggle('hidden');
     }
 };
-
 
 let submitAccount = accountInfo => {
     postPromise = fetch(`${urlAPI}createUser`, 
@@ -73,32 +78,32 @@ let submitAccount = accountInfo => {
         console.log(e.message);
     });
     // console.log(postPromise);
-    postPromise.then(function(response) {
-        response.text().then(function(text) {
-            if (text === "ACCOUNT CREATION FAIL") {
-                // do something in the DOM and say "You suck."
-                console.log("bok bok bok");
-            } else {
-                console.log('Storing Your Token...');
-                localStorage.setItem('silvertwilight', text);
-                accountPage.classList.toggle('hidden');
-                enterPage.classList.toggle('hidden');
-            }
-        });
+    postPromise.then(() => {
+        console.log('Account Created');
+        accountPage.classList.toggle('hidden');
+        loginPage.classList.toggle('hidden');
     });
 };
 
 let captureAccountInfo = event => {
     event.preventDefault();
     let email = document.querySelector('[name="account-email"]');
-    let password = document.querySelector('[name="account-password"]');
+    let password1 = document.querySelector('[name="account-password-1"]');
+    let password2 = document.querySelector('[name="account-password-2"]');
     let name = document.querySelector('[name="account-name"]');
     let accountInfo = {
         'email': email.value,
-        'password': password.value,
+        'password': password1.value,
         'name': name.value
     };
-    submitAccount(accountInfo);
+    let fieldEmpty = Object.values(accountInfo).includes('');
+    if(fieldEmpty) {
+        alert("Please fill out all fields");
+    } else if (password1.value === password2.value) {
+        submitAccount(accountInfo);
+    } else {
+        alert("Passwords do not match.");
+    }
 };
 
 let showAccountPage = event => {
