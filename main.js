@@ -17,10 +17,7 @@ let gamePage = document.querySelector('.game-page');
 let retrieveStats = () => {
     let currentMoney = document.querySelector('.current-money');
     let currentPower = document.querySelector('.current-power');
-    getPromise = fetch(`${urlAPI}stats/?token=${token}`,
-        {
-            method: "get"
-        });
+    getPromise = fetch(`${urlAPI}stats/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
@@ -42,10 +39,7 @@ let retrieveStats = () => {
 
 let retrieveCompanies = () => {
     let companyList = document.querySelector('[name="companies-dropdown-menu"]'); 
-    getPromise = fetch(`${urlAPI}companyList/?token=${token}`,
-        {
-            method: "get"
-        });
+    getPromise = fetch(`${urlAPI}companyList/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
@@ -73,11 +67,42 @@ let retrieveCompanies = () => {
     });
 };
 
+let retrieveStrategies = () => {
+    let strategyList = document.querySelector('[name="stratagies-dropdown-menu"]'); 
+    getPromise = fetch(`${urlAPI}stratList/?token=${token}`);
+    getPromise.catch(e => {
+        console.log(e.message);
+    });
+    [{"strategy":"Intimidate"},{"strategy":"Seduce"},{"strategy":"Schmooze"},{"strategy":"Life of the party"}]
+    getPromise
+        .then(function(response){
+        //returns just the body of response
+        return response.json()
+        })
+        .then(function(response) {
+        if (response === null){
+        console.log('error no stats');
+        }
+        else {
+            console.log(response);
+            for (index = 0; index < response.length; index++) {
+                let option = document.createElement("OPTION");
+                let strategy = response[index].strategy;
+                option.id = `strategy${index}`;
+                strategyList.appendChild(option);
+                document.getElementById(`strategy${index}`).text =`${strategy}`;
+                document.getElementById(`strategy${index}`).value = `${strategy}`;
+            }            
+        }
+    });
+};
+
 let writeGamePage = () => {
     enterPage.classList.toggle('hidden');
     gamePage.classList.toggle('hidden');
     retrieveStats();
     retrieveCompanies();
+    retrieveStrategies();
 };
 let submitLogin = loginInfo => {
     console.log('working')
