@@ -142,6 +142,9 @@ server.use(function(req, res, next) {
     next();
 });
 
+//get list of companies
+//get list of venues
+//get list of strategies
 server.get('/stats/', validateToken, getStats);
 server.get('/checkQueue/', validateToken, checkQueue);
 server.post('/login', doLogin);
