@@ -39,14 +39,19 @@ let getStats = (req, res) => {
 let checkQueue = (req, res) => {
     // req.user is set by validateToken
     let userId = req.user.userId;
-    db.one(`SELECT  FROM st_action_queue WHERE player_id=${userId}`)
-    .then(userStats => {
-        res.send(userStats);
+    db.one(`SELECT *
+    FROM st_money_queue
+    INNER JOIN st_power_queue
+    ON st_money_queue.user_id = st_power_queue.user_id
+    WHERE st_money_queue.user_id = ${userId};`)
+    .then(userActions => {
+        console.log('User has scheduled actions already: ' + userId);
+        res.send(userActions);
     })
     .catch(function(error) {
-        console.log('Error fetching stats: ' + userID);
+        console.log('Error fetching queue for: ' + userID);
         console.log(error);
-        res.send('STATS FAIL');
+        res.send('QUEUE FAIL');
     });
 }
 
