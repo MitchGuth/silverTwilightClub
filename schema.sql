@@ -15,7 +15,7 @@ CREATE TABLE st_player_stat (
 CREATE TABLE st_company (
     id SERIAL PRIMARY KEY,
     name varchar(200) NOT NULL,
-    min_cost varchar(200) NOT NULL,
+    min_cost INTEGER NOT NULL,
     chance varchar(200) NOT NULL
 );
 
