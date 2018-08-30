@@ -15,28 +15,31 @@ let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
 
 let retrieveStats = () => {
-  enterPage.classList.toggle('hidden');
-  gamePage.classList.toggle('hidden');
-  let currentMoney = document.querySelector('current-money');
-  let currentPower = document.querySelector('current-power');
-  getPromise = fetch(`${urlAPI}stats/?token=${token}`,
-  {
-    method: "get"
-  });
-  getPromise.catch(e => {
-    console.log(e.message);
-  });
-  getPromise.then(function(response) {
-    JSON.parse(response).then(function(response) {
-      if (response === ''){
-        console.log('error no stats');
-      }
-      else{
-        currentMoney.textContent(response.money);
-        currentPower.setItem(response.power);
-      }
+    enterPage.classList.toggle('hidden');
+    gamePage.classList.toggle('hidden');
+    let currentMoney = document.querySelector('.current-money');
+    let currentPower = document.querySelector('.current-power');
+    getPromise = fetch(`${urlAPI}stats/?token=${token}`,
+        {
+            method: "get"
+        });
+    getPromise.catch(e => {
+        console.log(e.message);
     });
-  });
+    getPromise
+        .then(function(response){
+        //returns just the body of response
+        return response.json()
+        })
+        .then(function(response) {
+        if (response === null){
+        console.log('error no stats');
+        }
+        else{
+            currentMoney.textContent = response.money;
+            currentPower.textContent = response.power;
+            }
+    });
 };
 
 let submitLogin = loginInfo => {

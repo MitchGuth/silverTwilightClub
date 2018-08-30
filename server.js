@@ -3,7 +3,7 @@ const pg = require('pg-promise')();
 const jwt = require('jsonwebtoken');
 const signature = process.env.JWTSECRET;
 const server = express();
-const dbCongfig = 'postgres://nat@localhost:5432/silvertwilight';
+const dbCongfig = 'postgres://MitchGuth@localhost:5432/silvertwilight';
 const db = pg(dbCongfig);
 
 // make me resilient to empty body
