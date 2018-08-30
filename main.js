@@ -17,10 +17,7 @@ let gamePage = document.querySelector('.game-page');
 let retrieveStats = () => {
     let currentMoney = document.querySelector('.current-money');
     let currentPower = document.querySelector('.current-power');
-    getPromise = fetch(`${urlAPI}stats/?token=${token}`,
-        {
-            method: "get"
-        });
+    getPromise = fetch(`${urlAPI}stats/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
@@ -42,10 +39,7 @@ let retrieveStats = () => {
 
 let retrieveCompanies = () => {
     let companyList = document.querySelector('[name="companies-dropdown-menu"]'); 
-    getPromise = fetch(`${urlAPI}companyList/?token=${token}`,
-        {
-            method: "get"
-        });
+    getPromise = fetch(`${urlAPI}companyList/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
@@ -73,15 +67,13 @@ let retrieveCompanies = () => {
     });
 };
 
-let retrieveVenues = () => {
-    let venueList = document.querySelector('[name="venues-dropdown-menu"]'); 
-    getPromise = fetch(`${urlAPI}venueList/?token=${token}`,
-        {
-            method: "get"
-        });
+let retrieveStrategies = () => {
+    let strategyList = document.querySelector('[name="stratagies-dropdown-menu"]'); 
+    getPromise = fetch(`${urlAPI}stratList/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
+    [{"strategy":"Intimidate"},{"strategy":"Seduce"},{"strategy":"Schmooze"},{"strategy":"Life of the party"}]
     getPromise
         .then(function(response){
         //returns just the body of response
@@ -95,10 +87,11 @@ let retrieveVenues = () => {
             console.log(response);
             for (index = 0; index < response.length; index++) {
                 let option = document.createElement("OPTION");
-                let venue = response[index].name;
-                option.id = `venue${index}`;
-                venueList.appendChild(option);
-                document.getElementById(`venue${index}`).text =`${venue}`;
+                let strategy = response[index].strategy;
+                option.id = `strategy${index}`;
+                strategyList.appendChild(option);
+                document.getElementById(`strategy${index}`).text =`${strategy}`;
+                document.getElementById(`strategy${index}`).value = `${strategy}`;
             }            
         }
     });
@@ -109,6 +102,7 @@ let writeGamePage = () => {
     gamePage.classList.toggle('hidden');
     retrieveStats();
     retrieveCompanies();
+    retrieveStrategies();
 };
 let submitLogin = loginInfo => {
     console.log('working')
