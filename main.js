@@ -74,7 +74,7 @@ let retrieveCompanies = () => {
 };
 
 let retrieveVenues = () => {
-    let venuList = document.querySelector('[name="venues-dropdown-menu"]'); 
+    let venueList = document.querySelector('[name="venues-dropdown-menu"]'); 
     getPromise = fetch(`${urlAPI}venueList/?token=${token}`,
         {
             method: "get"
@@ -95,12 +95,10 @@ let retrieveVenues = () => {
             console.log(response);
             for (index = 0; index < response.length; index++) {
                 let option = document.createElement("OPTION");
-                let company = response[index].name;
-                let minCost = response[index].min_cost;
-                option.id = `company${index}`;
-                companyList.appendChild(option);
-                document.getElementById(`company${index}`).text =`${company} - Min Cost: ${minCost}`;
-                document.getElementById(`company${index}`).value = `${response[index]}`;
+                let venue = response[index].name;
+                option.id = `venue${index}`;
+                venueList.appendChild(option);
+                document.getElementById(`venue${index}`).text =`${venue}`;
             }            
         }
     });
