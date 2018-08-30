@@ -58,6 +58,7 @@ let captureLoginInfo = event => {
 let showLoginPage = event => {
     event.preventDefault();
     if (token) {
+        landingPage.classList.toggle('hidden');
         enterPage.classList.toggle('hidden');
     } else {
         landingPage.classList.toggle('hidden');
