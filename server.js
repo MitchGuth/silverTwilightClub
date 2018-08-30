@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 const signature = process.env.JWTSECRET;
 const db_user = process.env.DB_USER
 const server = express();
+<<<<<<< HEAD
+const dbCongfig = 'postgres://MitchGuth@localhost:5432/silvertwilight';
+=======
 const dbCongfig = `postgres://${db_user}@localhost:5432/silvertwilight`;
+>>>>>>> master
 const db = pg(dbCongfig);
 
 // make me resilient to empty body
