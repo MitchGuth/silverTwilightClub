@@ -2,8 +2,9 @@ const express = require('express');
 const pg = require('pg-promise')();
 const jwt = require('jsonwebtoken');
 const signature = process.env.JWTSECRET;
+const db_user = process.env.DB_USER
 const server = express();
-const dbCongfig = 'postgres://nat@localhost:5432/silvertwilight';
+const dbCongfig = `postgres://${db_user}@localhost:5432/silvertwilight`;
 const db = pg(dbCongfig);
 
 // make me resilient to empty body
@@ -118,6 +119,36 @@ let doLogin = (req, res) => {
     });
 }
 
+let companyList = (req, res, next) => {
+    db.any('SELECT name, min_cost FROM st_company;')
+    .then(function(data) {
+        res.end(JSON.stringify(data));
+    })
+    .catch(function(e) {
+        console.log("Splode: " + e);
+    });
+}
+
+let venueList = (req, res, next) => {
+    db.any('SELECT location FROM st_venue;')
+    .then(function(data) {
+        res.end(JSON.stringify(data));
+    })
+    .catch(function(e) {
+        console.log("Splode: " + e);
+    });
+}
+
+let stratList = (req, res, next) => {
+    db.any('SELECT strategy FROM st_strategy;')
+    .then(function(data) {
+        res.end(JSON.stringify(data));
+    })
+    .catch(function(e) {
+        console.log("Splode: " + e);
+    });
+}
+
 let validateToken = (req, res, next) => {
     let token = req.query.token;
     let isValid = false;
@@ -146,14 +177,15 @@ server.use(function(req, res, next) {
     next();
 });
 
-//get list of companies
-//get list of venues
-//get list of strategies
 server.get('/stats/', validateToken, getStats);
 server.get('/checkQueue/', validateToken, checkQueue);
+server.get('/companyList/', validateToken, companyList);
+server.get('/venueList/', validateToken, venueList);
+server.get('/stratList/', validateToken, stratList);
 server.post('/login', doLogin);
 server.post('/createUser', createUser);
 server.get('/', serverInfo);
+
 
 console.log('Server listening on http://localhost:5000');
 server.listen(5000);
