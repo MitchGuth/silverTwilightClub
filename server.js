@@ -37,18 +37,21 @@ let getStats = (req, res) => {
     });
 };
 //still not optimized
-// let getNews = (req, res) => {
-//     let userId = req.user.userId;
-//     db.one(`SELECT description FROM st_news WHERE st_player.id=${userId}`)
-//     .then(userNews => {
-//         res.send(userNews);
-//     })
-//     .catch(function(error) {
-//         console.log('Error fetching stats: ' + userId);
-//         console.log(error);
-//         res.send('STATS FAIL');
-//     });
-// }
+let getNews = (req, res) => {
+    let userId = req.user.userId;
+    db.many(`SELECT description FROM st_news WHERE user_id = ${userId}
+    ORDER BY timestamp DESC
+    LIMIT 3;`)
+    .then(userNews => {
+        console.log(userNews);
+        res.end(JSON.stringify(userNews));
+    })
+    .catch(function(error) {
+        console.log('Error fetching news: ' + userId);
+        console.log(error);
+        res.end('FAIL');
+    });
+};
 
 let checkQueue = (req, res) => {
     // req.user is set by validateToken
