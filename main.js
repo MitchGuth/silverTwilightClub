@@ -19,7 +19,20 @@ let companiesAndPrices = {};
 let contentContainer = document.querySelector('.content-container');
 let goodbye = document.querySelector('.goodbye');
 
+let printGamePage = (alive) => {
+    if (alive) {
+        enterPage.classList.toggle('hidden');
+        gamePage.removeChild(goodbye);
+        gamePage.classList.toggle('hidden');
+    } else {
+        enterPage.classList.toggle('hidden');
+        gamePage.removeChild(contentContainer);
+        gamePage.classList.toggle('hidden');
+    }     
+};
+
 let retrieveStats = () => {
+    let alive = true;
     let currentMoney = document.querySelector('.current-money');
     let currentPower = document.querySelector('.current-power');
     getPromise = fetch(`${urlAPI}stats/?token=${token}`);
@@ -34,17 +47,16 @@ let retrieveStats = () => {
         .then(function(response) {
         if (response === null){
         console.log('error no stats');
-        }
-        else{
+        } if (response.money <= 0 || response.power <= 0){
+            currentMoney.textContent = response.money;
+            currentPower.textContent = response.power;
+            alive = false;
+            printGamePage(alive);
+        } else {
             currentMoney.textContent = response.money;
             currentPower.textContent = response.power;
             money = response.money;
-            }
-        // Checks to see if the player ran out of money or power
-        if (response.money <= 0 || response.power <= 0){
-            content-container.classList.toggle('hidden');
-            goodbye.classList.toggle('hidden');
-            
+            printGamePage(alive);
         }
     });
 };
@@ -136,7 +148,7 @@ let retrieveStrategies = () => {
                 strategyList.appendChild(option);
                 document.getElementById(`strategy${index}`).text =`${strategy}`;
                 document.getElementById(`strategy${index}`).value = response[index].id;
-            }            
+            } 
         }
     });
 };
@@ -147,10 +159,8 @@ let retrieveStrategies = () => {
 // }
 
 let writeGamePage = () => {
-    enterPage.classList.toggle('hidden');
-    gamePage.classList.toggle('hidden');
-    contentContainer.classList.toggle('hidden');
-    newsSection.classList.toggle('hidden');
+    token = localStorage.getItem('silvertwilight');
+    console.log(token);
     retrieveStats();
     retrieveCompanies();
     retrieveVenues();
@@ -160,7 +170,7 @@ let writeGamePage = () => {
 
 let submitAction = actionInfo => {
     console.log(JSON.stringify(actionInfo))
-    postPromise = fetch(`${urlAPI}createAction/`, 
+    postPromise = fetch(`${urlAPI}createAction/?token=${token}`, 
         {
             method: "post",
             // mode: "no-cors",
