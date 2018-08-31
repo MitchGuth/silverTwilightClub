@@ -32,6 +32,9 @@ INSERT INTO st_strategy (id, strategy) VALUES
 
 INSERT INTO st_money_queue (action_id, user_id, company_id, bid_amount) VALUES
 (1, 1, 1, 500),
+(1, 3, 1, 900),
+(1, 4, 2, 100),
+(1, 5, 2, 200),
 (1, 2, 1, 400);
 
 INSERT INTO st_power_queue (action_id, user_id, venue_id, strategy_id) VALUES

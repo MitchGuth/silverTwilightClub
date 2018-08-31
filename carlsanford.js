@@ -5,17 +5,20 @@ const dbCongfig = `postgres://${db_user}@localhost:5432/silvertwilight`;
 const db = pg(dbCongfig);
 
 let processCompanyQueue = () => {
-    db.any('SELECT id, name, min_cost, chance FROM st_company')
-    .then(function(companyList) {
-        for (let company of companyList) {
-            console.log("Processing " + company.id + " " +company.name);
+    // only do this for companies we know are in the queue
+    db.any('SELECT DISTINCT company_id FROM st_money_queue;')
+    .then(function(companyIDList) {
+        for (let company of companyIDList) {
+            console.log("Processing " + company.company_id);
             db.one(`SELECT user_id, bid_amount FROM 
                 st_money_queue WHERE bid_amount = (select max(bid_amount) 
-                FROM st_money_queue where company_id = ${company.id});`)
+                FROM st_money_queue where company_id = ${company.company_id});`)
             .then( function(highbid) {
-                console.log(highbid);
+                console.log(`User ${highbid.user_id} has the highest bid of ${highbid.bid_amount} for company ${company.company_id}`);
             })
-            .catch(
+            .catch(error => {
+                console.log("Oh shit.");
+            })
         }
         })
     .catch(error => {
