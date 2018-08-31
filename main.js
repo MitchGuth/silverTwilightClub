@@ -141,10 +141,16 @@ let retrieveStrategies = () => {
     });
 };
 
+// let retrieveNews = () => {
+//     let newsList = document.querySelector('current-news');
+//     getPromise = fetch(`${urlAPI}`)
+// }
+
 let writeGamePage = () => {
     enterPage.classList.toggle('hidden');
     gamePage.classList.toggle('hidden');
     contentContainer.classList.toggle('hidden');
+    newsSection.classList.toggle('hidden');
     retrieveStats();
     retrieveCompanies();
     retrieveVenues();

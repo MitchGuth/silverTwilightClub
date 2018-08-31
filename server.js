@@ -168,6 +168,16 @@ let stratList = (req, res, next) => {
         console.log("Splode: " + e);
     });
 }
+//Needs adjustment for specific data
+// let newsList = (req, res, next) => {
+//     db.any('SELECT * From st_money_queue;')
+//     .then(function(data) {
+//         res.end(JSON.stringify(data));
+//     })
+//     .catch(function(e) {
+//         console.log("Uh-oh: " + e);
+//     });
+// }
 
 let validateToken = (req, res, next) => {
     let token = req.query.token;
@@ -202,6 +212,7 @@ server.get('/checkQueue/', validateToken, checkQueue);
 server.get('/companyList/', validateToken, companyList);
 server.get('/venueList/', validateToken, venueList);
 server.get('/stratList/', validateToken, stratList);
+server.get('//', validateToken, newsList);
 server.post('/login', doLogin);
 server.post('/createUser', createUser);
 server.post('/createAction/', validateToken, createAction);
