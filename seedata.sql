@@ -18,7 +18,7 @@ INSERT INTO st_company (name, min_cost, chance) VALUES
 ('P.C. Norris, LTD', 400, 30),
 ('Tango Cash Mechanica', 600, 40);
 
-INSERT INTO st_venue (location, bonusStrategies) VALUES
+INSERT INTO st_venue (location, bonus_strategy) VALUES
 ('The Majestic Ballroom', 2),
 ('St. Charles Cathedral', 1),
 ('City Hall', 3),

@@ -22,7 +22,7 @@ CREATE TABLE st_company (
 CREATE TABLE st_venue (
     id SERIAL PRIMARY KEY,
     location varchar(200) NOT NULL,
-    bonusStrategies varchar(200) NOT NULL
+    bonus_strategy INTEGER NOT NULL
 );
 
 CREATE TABLE st_strategy (
