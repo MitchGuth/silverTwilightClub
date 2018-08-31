@@ -14,6 +14,8 @@ let loginPage = document.querySelector('.login-page');
 let accountPage = document.querySelector('.account-page');
 let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
+let money;
+let companiesAndPrices = {};
 
 let retrieveStats = () => {
     let currentMoney = document.querySelector('.current-money');
@@ -34,6 +36,7 @@ let retrieveStats = () => {
         else{
             currentMoney.textContent = response.money;
             currentPower.textContent = response.power;
+            money = response.money;
             }
     });
 };
@@ -62,8 +65,9 @@ let retrieveCompanies = () => {
                 let minCost = response[index].min_cost;
                 option.id = `company${index}`;
                 companyList.appendChild(option);
-                document.getElementById(`company${index}`).text =`${company} - Min Cost: ${minCost}`;
+                document.getElementById(`company${index}`).text =`${company} - Min. Bid: $${minCost}`;
                 document.getElementById(`company${index}`).value = companyObject['id'];
+                companiesAndPrices[companyObject['id']] = minCost;
             }            
         }
     });
@@ -138,12 +142,32 @@ let writeGamePage = () => {
     retrieveStrategies();
 };
 
+
+let submitAction = actionInfo => {
+    console.log(JSON.stringify(actionInfo))
+    postPromise = fetch(`${urlAPI}createAction/`, 
+        {
+            method: "post",
+            // mode: "no-cors",
+            headers: {'content-type':'application/json'},
+            body: JSON.stringify(actionInfo)
+        });
+    postPromise.catch(e => {
+        console.log(e.message);
+    });
+    // console.log(postPromise);
+    postPromise.then(() => {
+        console.log('Actions Submitted');
+    });
+};
+
 let captureActionInfo = event => {
     event.preventDefault();
     let moneyActionId = 1;
     let companyList = document.getElementById('company-selector'); 
     let company = companyList.options[companyList.selectedIndex]; 
-    let bid = document.querySelector('[name="bid"]');
+    let minBid = companiesAndPrices[company.value];
+    let userBid = document.querySelector('[name="bid"]');
     let powerActionId = 1;
     let venueList = document.getElementById('venue-selector'); 
     let venue = venueList.options[venueList.selectedIndex]; 
@@ -153,7 +177,7 @@ let captureActionInfo = event => {
         money: {
             'actionId': parseInt(moneyActionId),
             'company': parseInt(company.value),
-            'bid': parseInt(bid.value)
+            'bid': parseInt(userBid.value)
         },
         power: {
             'actionId': parseInt(powerActionId),
@@ -161,14 +185,16 @@ let captureActionInfo = event => {
             'strategy': parseInt(strategy.value)
         }
     };
-    console.log(actionInfo);
-    let fieldEmpty = Object.values(accountInfo).includes(NaN);
-    if(fieldEmpty) {
+    let moneyFieldEmpty = Object.values(actionInfo.money).includes(NaN);
+    let powerFieldEmpty = Object.values(actionInfo.power).includes(NaN);
+    if(powerFieldEmpty || moneyFieldEmpty) {
         alert("Please fill out all fields");
-    } else if (password1.value === password2.value) {
-        submitAccount(accountInfo);
+    } else if (minBid > parseInt(userBid.value)) {
+        alert("Scoundrel, your bid is below the minimum.");
+    } else if (money < parseInt(userBid.value)) {
+        alert("Your bid is greater than your wallet, peasant.");
     } else {
-        alert("Passwords do not match.");
+        submitAction(actionInfo);
     }
 };
 

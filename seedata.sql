@@ -15,7 +15,7 @@ INSERT INTO st_player_stat (user_id, power, money) VALUES
 INSERT INTO st_company (name, min_cost, chance) VALUES
 ('Crankstaff Amalgamated', 400, 10),
 ('Doylycott Napkins Ltd.', 400, 20),
-('P.C. Norris, LTD', 400, 30),
+('P.C. Norris, LTD', 50, 30),
 ('Tango Cash Mechanica', 600, 40);
 
 INSERT INTO st_venue (location, bonusStrategies) VALUES
