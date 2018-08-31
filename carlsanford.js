@@ -67,6 +67,7 @@ let processCompanyQueueWinner = function() {
 }
 
 let processCompanyQueueLoser = function() {
+    console.log('All your base are belong to us.');
 }
 
 let processCompanyQueueReset = function() {
