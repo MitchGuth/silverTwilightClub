@@ -6,6 +6,7 @@ let accountButtton = document.querySelector('.account-btn');
 let submitLoginButton = document.querySelector('.submit-login-btn');
 let submitAccountButton = document.querySelector('.submit-account-btn');
 let enterButton = document.querySelector('.enter-btn');
+let submitActionButton = document.querySelector('.submit-action-btn');
 
 // Select pages to hide or show
 let landingPage = document.querySelector('.landing-page');
@@ -13,6 +14,8 @@ let loginPage = document.querySelector('.login-page');
 let accountPage = document.querySelector('.account-page');
 let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
+let money;
+let companiesAndPrices = {};
 let contentContainer = document.querySelector('.content-container');
 let goodbye = document.querySelector('.goodbye');
 
@@ -35,6 +38,7 @@ let retrieveStats = () => {
         else{
             currentMoney.textContent = response.money;
             currentPower.textContent = response.power;
+            money = response.money;
             }
         // Checks to see if the player ran out of money or power
         if (response.money <= 0 || response.power <= 0){
@@ -64,12 +68,14 @@ let retrieveCompanies = () => {
             console.log(response);
             for (index = 0; index < response.length; index++) {
                 let option = document.createElement("OPTION");
-                let company = response[index].name;
+                let companyObject = response[index];
+                let company = companyObject.name;
                 let minCost = response[index].min_cost;
                 option.id = `company${index}`;
                 companyList.appendChild(option);
-                document.getElementById(`company${index}`).text =`${company} - Min Cost: ${minCost}`;
-                document.getElementById(`company${index}`).value = `${response[index]}`;
+                document.getElementById(`company${index}`).text =`${company} - Min. Bid: $${minCost}`;
+                document.getElementById(`company${index}`).value = companyObject['id'];
+                companiesAndPrices[companyObject['id']] = minCost;
             }            
         }
     });
@@ -94,11 +100,13 @@ let retrieveVenues = () => {
             console.log(response);
             for (index = 0; index < response.length; index++) {
                 let option = document.createElement("OPTION");
-                let venue = response[index].location;
+                let venueObject = response[index];
+                let venue = venueObject.location;
                 option.id = `venue${index}`;
                 venueList.appendChild(option);
-                document.getElementById(`venue${index}`).text =`${venue}`;
-                document.getElementById(`venue${index}`).value = `${venue}`;
+                let venueOption = document.getElementById(option.id);
+                venueOption.text = `${venue}`;
+                venueOption.value = `${venueObject.id}`;
             }            
         }
     });
@@ -110,7 +118,6 @@ let retrieveStrategies = () => {
     getPromise.catch(e => {
         console.log(e.message);
     });
-    [{"strategy":"Intimidate"},{"strategy":"Seduce"},{"strategy":"Schmooze"},{"strategy":"Life of the party"}]
     getPromise
         .then(function(response){
         //returns just the body of response
@@ -128,7 +135,7 @@ let retrieveStrategies = () => {
                 option.id = `strategy${index}`;
                 strategyList.appendChild(option);
                 document.getElementById(`strategy${index}`).text =`${strategy}`;
-                document.getElementById(`strategy${index}`).value = `${strategy}`;
+                document.getElementById(`strategy${index}`).value = response[index].id;
             }            
         }
     });
@@ -143,6 +150,63 @@ let writeGamePage = () => {
     retrieveVenues();
     retrieveStrategies();
 };
+
+
+let submitAction = actionInfo => {
+    console.log(JSON.stringify(actionInfo))
+    postPromise = fetch(`${urlAPI}createAction/`, 
+        {
+            method: "post",
+            // mode: "no-cors",
+            headers: {'content-type':'application/json'},
+            body: JSON.stringify(actionInfo)
+        });
+    postPromise.catch(e => {
+        console.log(e.message);
+    });
+    // console.log(postPromise);
+    postPromise.then(() => {
+        console.log('Actions Submitted');
+    });
+};
+
+let captureActionInfo = event => {
+    event.preventDefault();
+    let moneyActionId = 1;
+    let companyList = document.getElementById('company-selector'); 
+    let company = companyList.options[companyList.selectedIndex]; 
+    let minBid = companiesAndPrices[company.value];
+    let userBid = document.querySelector('[name="bid"]');
+    let powerActionId = 1;
+    let venueList = document.getElementById('venue-selector'); 
+    let venue = venueList.options[venueList.selectedIndex]; 
+    let strategyList = document.getElementById('strategy-selector'); 
+    let strategy = strategyList.options[strategyList.selectedIndex]; 
+    let actionInfo = {
+        money: {
+            'actionId': parseInt(moneyActionId),
+            'company': parseInt(company.value),
+            'bid': parseInt(userBid.value)
+        },
+        power: {
+            'actionId': parseInt(powerActionId),
+            'venue': parseInt(venue.value),
+            'strategy': parseInt(strategy.value)
+        }
+    };
+    let moneyFieldEmpty = Object.values(actionInfo.money).includes(NaN);
+    let powerFieldEmpty = Object.values(actionInfo.power).includes(NaN);
+    if(powerFieldEmpty || moneyFieldEmpty) {
+        alert("Please fill out all fields");
+    } else if (minBid > parseInt(userBid.value)) {
+        alert("Scoundrel, your bid is below the minimum.");
+    } else if (money < parseInt(userBid.value)) {
+        alert("Your bid is greater than your wallet, peasant.");
+    } else {
+        submitAction(actionInfo);
+    }
+};
+
 let submitLogin = loginInfo => {
     console.log('working')
     postPromise = fetch(`${urlAPI}login`, 
@@ -249,3 +313,4 @@ accountButtton.addEventListener('click', showAccountPage);
 submitLoginButton.addEventListener('click', captureLoginInfo);
 submitAccountButton.addEventListener('click', captureAccountInfo);
 enterButton.addEventListener('click', writeGamePage);
+submitActionButton.addEventListener('click', captureActionInfo);
