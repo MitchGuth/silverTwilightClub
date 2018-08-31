@@ -36,6 +36,19 @@ let getStats = (req, res) => {
         res.send('STATS FAIL');
     });
 };
+//still not optimized
+// let getNews = (req, res) => {
+//     let userId = req.user.userId;
+//     db.one(`SELECT description FROM st_news WHERE st_player.id=${userId}`)
+//     .then(userNews => {
+//         res.send(userNews);
+//     })
+//     .catch(function(error) {
+//         console.log('Error fetching stats: ' + userId);
+//         console.log(error);
+//         res.send('STATS FAIL');
+//     });
+// }
 
 let checkQueue = (req, res) => {
     // req.user is set by validateToken
@@ -168,16 +181,6 @@ let stratList = (req, res, next) => {
         console.log("Splode: " + e);
     });
 }
-//Needs adjustment for specific data
-// let newsList = (req, res, next) => {
-//     db.any('SELECT * From st_money_queue;')
-//     .then(function(data) {
-//         res.end(JSON.stringify(data));
-//     })
-//     .catch(function(e) {
-//         console.log("Uh-oh: " + e);
-//     });
-// }
 
 let validateToken = (req, res, next) => {
     let token = req.query.token;
@@ -208,11 +211,11 @@ server.use(function(req, res, next) {
 });
 
 server.get('/stats/', validateToken, getStats);
+server.get('/news/', validateToken, getNews);
 server.get('/checkQueue/', validateToken, checkQueue);
 server.get('/companyList/', validateToken, companyList);
 server.get('/venueList/', validateToken, venueList);
 server.get('/stratList/', validateToken, stratList);
-server.get('//', validateToken, newsList);
 server.post('/login', doLogin);
 server.post('/createUser', createUser);
 server.post('/createAction/', validateToken, createAction);
