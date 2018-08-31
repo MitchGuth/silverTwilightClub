@@ -16,6 +16,8 @@ let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
 let money;
 let companiesAndPrices = {};
+let contentContainer = document.querySelector('.content-container');
+let goodbye = document.querySelector('.goodbye');
 
 let retrieveStats = () => {
     let currentMoney = document.querySelector('.current-money');
@@ -38,6 +40,12 @@ let retrieveStats = () => {
             currentPower.textContent = response.power;
             money = response.money;
             }
+        // Checks to see if the player ran out of money or power
+        if (response.money <= 0 || response.power <= 0){
+            content-container.classList.toggle('hidden');
+            goodbye.classList.toggle('hidden');
+            
+        }
     });
 };
 
@@ -136,6 +144,7 @@ let retrieveStrategies = () => {
 let writeGamePage = () => {
     enterPage.classList.toggle('hidden');
     gamePage.classList.toggle('hidden');
+    contentContainer.classList.toggle('hidden');
     retrieveStats();
     retrieveCompanies();
     retrieveVenues();

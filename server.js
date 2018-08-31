@@ -91,14 +91,13 @@ let createUser = (req,res) => {
     });
 };
 
-// { money: { actionId: 1, company: 1, bid: 12345 },
-//   power: { actionId: 1, venue: 2, strategy: 3 } 
-// }
 let createAction = (req, res) => {
     let userId = req.user.userId;
     readBody(req, (body) => {
         let action = JSON.parse(body);
         console.log(action);
+        // this is where to add code to run an parse/insert based on the action ID.
+        // the below is hard coded for Company action.
         db.none(`INSERT INTO st_money_queue(action_id, user_id, company_id, bid_amount) VALUES
         (${action.money.actionId},${userId},${action.money.company},${action.money.bid});`)
         .then( ()=> {
@@ -107,6 +106,7 @@ let createAction = (req, res) => {
         })
         .catch(error => {
             console.log('Action insertion error' + error);
+            res.end('FAIL');
         })
         res.end('SUCCESS');
     });
