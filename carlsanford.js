@@ -4,11 +4,53 @@ const db_user = process.env.DB_USER
 const dbCongfig = `postgres://${db_user}@localhost:5432/silvertwilight`;
 const db = pg(dbCongfig);
 
+let doBidWinner = function(highbid) {
+    let adjustedCash;
+    db.one(`SELECT money FROM st_player_stat WHERE user_id= ${highbid.user_id};`)
+    .then(function(playerCash) {
+        adjustedCash = playerCash.money - highbid.bid_amount;
+        console.log("User: " + highbid.user_id + " now has " + adjustedCash);
+        return adjustedCash;
+    })
+    .then(function(adjustedCash) {
+        let bonusCash = 0;
+        let roll = Math.floor(Math.random() * 101);
+        db.one(`SELECT chance FROM st_company WHERE id = ${highbid.company_id};`)
+        .then(function (chance) { 
+            console.log(`Rolled ${roll} and a chance of ${chance.chance}`);
+            if (roll <= chance.chance) {
+                let bonusAmount = highbid.bid_amount * roll;
+                bonusCash = highbid.bid_amount + bonusAmount;
+                console.log('You WIN' + bonusCash);
+                adjustedCash = adjustedCash + bonusCash;
+                console.log(adjustedCash);
+            } else {
+                console.log('No dice.'); 
+            }
+            console.log(`UPDATE st_player_stat SET money=${adjustedCash} where user_id=${highbid.user_id}`)
+        })
+    })
+    .catch(error => {
+        console.log('Catastrophe ' + error);
+    })
+}
+
 let processCompanyQueue = () => {
-    db.any('SELECT id, name, min_cost, chance FROM st_company')
-    .then(function(companyList) {
-        for (let company of companyList) {
-            console.log(company.id);
+    // only do this for companies we know are in the queue
+    db.any('SELECT DISTINCT company_id FROM st_money_queue;')
+    .then(function(companyIDList) {
+        for (let company of companyIDList) {
+            db.one(`SELECT user_id, bid_amount, company_id FROM 
+                st_money_queue WHERE bid_amount = (select max(bid_amount) 
+                FROM st_money_queue where company_id = ${company.company_id});`)
+            .then( function(highbid) {
+                console.log(`User ${highbid.user_id} has the highest bid of ${highbid.bid_amount} for company ${highbid.company_id}`);
+                doBidWinner(highbid);
+            })
+            .catch(error => {
+                console.log('Devastation ' + error);
+            })
+            console.log
         }
         })
     .catch(error => {
@@ -16,22 +58,10 @@ let processCompanyQueue = () => {
         console.log(error);
     })
 }
-// process money action 1
-// 	for each company in st_company:
-
-// 	evaluate the winner:
-// 		select all bids where company and max bid
-// 		update his money stat to remove bid
-// 		company has a "chance" value
-// 		roll a d100:
-// 			if the roll is <= chance, you made money
-// 			add money (bid * 1.theroll) & add news
-// 			else the roll is > chance, you lost money
-// 			remove (bid * 1.theroll) & add news
-
 // 	evaluate losers:
 // 		select all bids where company and min bid
 // 		remove ( bid *.25 ) : remove 1 power & news
 
+// -------------------- MAIN BLOCK
 //action 1
 processCompanyQueue();
