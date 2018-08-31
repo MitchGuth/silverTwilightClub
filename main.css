@@ -53,6 +53,9 @@ html, body {
     max-width: 10em;
     
 }
+.goodbye-message {
+    padding: 1em;
+}
 .content-container {
     padding: 1em;
     display: flex;
