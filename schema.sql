@@ -45,6 +45,7 @@ CREATE TABLE st_power_queue (
 );
 
 CREATE TABLE st_news (
+    timestamp TIMESTAMP, 
     user_id INTEGER REFERENCES st_player(id),
     description varchar(255)
 );
