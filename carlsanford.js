@@ -116,6 +116,7 @@ let processPowerQueue = function() {
                 console.log('strategy match bonus engaged');
                 chance = 40;
             }
+            console.log('Chance is: ' + chance);
             if (roll <= chance) {
                 resultMsg = "Success! You managed the proper stratagem and have gained more influence."
                 console.log(resultMsg);
