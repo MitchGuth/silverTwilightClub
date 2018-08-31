@@ -36,6 +36,22 @@ let getStats = (req, res) => {
         res.send('STATS FAIL');
     });
 };
+//still not optimized
+let getNews = (req, res) => {
+    let userId = req.user.userId;
+    db.many(`SELECT description FROM st_news WHERE user_id = ${userId}
+    ORDER BY timestamp DESC
+    LIMIT 3;`)
+    .then(userNews => {
+        console.log(userNews);
+        res.end(JSON.stringify(userNews));
+    })
+    .catch(function(error) {
+        console.log('Error fetching news: ' + userId);
+        console.log(error);
+        res.end('FAIL');
+    });
+};
 
 let checkQueue = (req, res) => {
     // req.user is set by validateToken
@@ -198,6 +214,7 @@ server.use(function(req, res, next) {
 });
 
 server.get('/stats/', validateToken, getStats);
+server.get('/news/', validateToken, getNews);
 server.get('/checkQueue/', validateToken, checkQueue);
 server.get('/companyList/', validateToken, companyList);
 server.get('/venueList/', validateToken, venueList);

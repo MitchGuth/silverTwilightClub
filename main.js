@@ -137,7 +137,7 @@ let retrieveStrategies = () => {
         })
         .then(function(response) {
         if (response === null){
-        console.log('error no strategies');
+            console.log('error no strategies');
         }
         else {
             console.log(response);
@@ -153,6 +153,27 @@ let retrieveStrategies = () => {
     });
 };
 
+let retrieveNews = () => {
+    let newsList = document.querySelector('.current-news');
+    getPromise = fetch(`${urlAPI}news/?token=${token}`);
+    getPromise 
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data) {
+        console.log(data);
+        console.log(data);
+        newsList.textContent = JSON.stringify(data);
+        
+        })
+        .catch(e => {
+            newsList.textContent = 'No news for you today.';
+            console.log('kabooooooooom');
+            console.log(e.message);
+    });
+};
+
+
 let writeGamePage = () => {
     token = localStorage.getItem('silvertwilight');
     console.log(token);
@@ -160,6 +181,7 @@ let writeGamePage = () => {
     retrieveCompanies();
     retrieveVenues();
     retrieveStrategies();
+    retrieveNews();
 };
 
 
