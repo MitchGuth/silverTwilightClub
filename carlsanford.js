@@ -77,20 +77,8 @@ let processCompanyQueueReset = function() {
     console.log(`DELETE FROM st_money_queue;`);
 }
 
-// [ { user_id: 1,
-//     user_venue: 1,
-//     user_strategy: 3,
-//     strategy_name: 'Schmooze',
-//     location_name: 'The Majestic Ballroom',
-//     power: 10,
-//     bonus_strategy: 2 },
-//   { user_id: 2,
-//     user_venue: 1,
-//     user_strategy: 2,
-//     power: 9,
-//     strategy_name: 'Seduce',
-//     location_name: 'The Majestic Ballroom',
-//     bonus_strategy: 2 } ]
+// TODO: add news
+// updateDB
 let processPowerQueue = function() {
     db.any(`SELECT st_power_queue.user_id,
     st_power_queue.venue_id AS user_venue,
@@ -130,18 +118,6 @@ let processPowerQueue = function() {
         }
     })
 }
-// Then:
-// chance = 30%
-// IF data.bonus === strategy_id then: chance = 40%, headline=true
-// Roll.
-
-// if roll <= chance player += 1 power, outcome= "Success! You managed the proper stratagem and have gained more influence."
-
-// else if roll == 1 player -= 1 power, outcome="Things were going so well, but then: You made a fool of yourself in front of some powerful people."
-
-// add news:
-// if headline news = You attended the event at $location and were exceptional at applying your skill in $strategy_name. $outcome.
-// else news = You attended the event at $location and tried your skill with $strategy_name. $outcome"
 
 // -------------------- MAIN BLOCK
 //MONEY action 1
