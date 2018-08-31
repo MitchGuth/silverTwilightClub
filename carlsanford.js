@@ -8,7 +8,14 @@ let processCompanyQueue = () => {
     db.any('SELECT id, name, min_cost, chance FROM st_company')
     .then(function(companyList) {
         for (let company of companyList) {
-            console.log(company.id);
+            console.log("Processing " + company.id + " " +company.name);
+            db.one(`SELECT user_id, bid_amount FROM 
+                st_money_queue WHERE bid_amount = (select max(bid_amount) 
+                FROM st_money_queue where company_id = ${company.id});`)
+            .then( function(highbid) {
+                console.log(highbid);
+            })
+            .catch(
         }
         })
     .catch(error => {
