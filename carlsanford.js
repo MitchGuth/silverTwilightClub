@@ -70,15 +70,9 @@ let processCompanyQueueLoser = function() {
 // 	evaluate losers:
 // 		select all bids where company and min bid
 // 		remove ( bid *.25 ) : remove 1 power & news
-    console.log('All your base are belong to us.');
+    console.log('Skippig bid losers for now...');
 }
 
-let processCompanyQueueReset = function() {
-    console.log(`DELETE FROM st_money_queue;`);
-}
-
-// TODO: add news
-// updateDB
 let processPowerQueue = function() {
     db.any(`SELECT st_power_queue.user_id,
     st_power_queue.venue_id AS user_venue,
@@ -98,7 +92,9 @@ let processPowerQueue = function() {
         console.log('Processing power actions...');
         for (let action of powerData) {
             var chance = 30;
+            let resultMsg;
             let roll = Math.floor(Math.random() * 101);
+            let adjustedPower = 0;
             console.log(`User ${action.user_id} attempts ${action.strategy_name} at ${action.location_name} and rolled ${roll}.`);
             if (action.user_strategy === action.bonus_strategy) {
                 console.log('strategy match bonus engaged');
@@ -106,15 +102,21 @@ let processPowerQueue = function() {
             }
             console.log('Chance is: ' + chance);
             if (roll <= chance) {
-                resultMsg = "Success! You managed the proper stratagem and have gained more influence."
-                console.log(resultMsg);
+                resultMsg = `Success! You attempt to use ${action.strategy_name} at ${action.location_name} was a success, with a dice roll of ${roll}.`;
+                adjustedPower = action.power + 1;
+                console.log(resultMsg + " " + adjustedPower);
             } else if (roll == 100) {
-                resultMsg = "Catastrophe! Things were going so well, but then: You made massive miscalculation and committed a social blunder in front of some powerful people."
-                console.log(resultMsg);
+                resultMsg = `Catastrophe! Your attempt to use ${action.strategy_name} at ${action.location_name} was an utter failure, with a dice roll of ${roll} and you have lost some power.`;
+                adjustedPower = action.power -1;
+                console.log(resultMsg + " " + adjustedPower);
             } else {
-                resultMsg = 'You did your best, but nobody was paying attention to your social machinations. You gain no power.';
-                console.log(resultMsg); 
+                resultMsg = `Your attempt to use ${action.strategy_name} at ${action.location_name} went unnoticed those present and did not gain you any more power. Better luck next time.`;
+                adjustedPower = action.power;
+                console.log(resultMsg + " " + adjustedPower); 
             }
+            db.none(`INSERT INTO st_news (timestamp, user_id, description)
+                VALUES (current_timestamp, ${action.user_id}, '${resultMsg}');`);
+            db.none(`UPDATE st_player_stat SET power = ${adjustedPower} WHERE user_id = ${action.user_id}`);
         }
     })
 }
@@ -123,6 +125,5 @@ let processPowerQueue = function() {
 //MONEY action 1
 processCompanyQueueWinner();
 processCompanyQueueLoser();
-processCompanyQueueReset();
 //POWER action 1
 processPowerQueue();
