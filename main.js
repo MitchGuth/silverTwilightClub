@@ -14,12 +14,16 @@ let loginPage = document.querySelector('.login-page');
 let accountPage = document.querySelector('.account-page');
 let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
+let welcomeMessage = document.querySelector('.welcome-message');
 let money;
+let alive = true;
+let signedIn = true;
+let username;
 let companiesAndPrices = {};
 let contentContainer = document.querySelector('.content-container');
 let goodbye = document.querySelector('.goodbye');
 
-let printGamePage = (alive) => {
+let showGamePage = () => {
     if (alive) {
         enterPage.classList.toggle('hidden');
         gamePage.removeChild(goodbye);
@@ -32,10 +36,9 @@ let printGamePage = (alive) => {
 };
 
 let retrieveStats = () => {
-    let alive = true;
     let currentMoney = document.querySelector('.current-money');
     let currentPower = document.querySelector('.current-power');
-    getPromise = fetch(`${urlAPI}stats/?token=${token}`);
+    let getPromise = fetch(`${urlAPI}stats/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
@@ -47,17 +50,21 @@ let retrieveStats = () => {
         .then(function(response) {
         if (response === null){
         console.log('error no stats');
-        } if (response.money <= 0 || response.power <= 0){
-            currentMoney.textContent = response.money;
-            currentPower.textContent = response.power;
-            alive = false;
-            printGamePage(alive);
-        } else {
-            currentMoney.textContent = response.money;
-            currentPower.textContent = response.power;
-            money = response.money;
-            printGamePage(alive);
         }
+        username = response.name;
+        welcomeMessage.textContent = `Welcome, ${username}`
+        currentMoney.textContent = response.money;
+        currentPower.textContent = response.power;
+        money = response.money;
+        if (response.money <= 0 || response.power <= 0){
+            alive = false;
+        };
+        if (signedIn) {        
+            landingPage.classList.toggle('hidden');
+        } else {
+            loginPage.classList.toggle('hidden');
+        };
+        enterPage.classList.toggle('hidden');
     });
 };
 
@@ -177,11 +184,11 @@ let retrieveNews = () => {
 let writeGamePage = () => {
     token = localStorage.getItem('silvertwilight');
     console.log(token);
-    retrieveStats();
     retrieveCompanies();
     retrieveVenues();
     retrieveStrategies();
     retrieveNews();
+    showGamePage();
 };
 
 
@@ -261,8 +268,8 @@ let submitLogin = loginInfo => {
             } else {
                 console.log('Storing Your Token...');
                 localStorage.setItem('silvertwilight', text);
-                loginPage.classList.toggle('hidden');
-                enterPage.classList.toggle('hidden');
+                signedIn = false;
+                retrieveStats();
             }
         });
     });
@@ -287,8 +294,8 @@ let captureLoginInfo = event => {
 let showLoginPage = event => {
     event.preventDefault();
     if (token) {
-        landingPage.classList.toggle('hidden');
-        enterPage.classList.toggle('hidden');
+        let signedIn = true;
+        retrieveStats(signedIn);
     } else {
         landingPage.classList.toggle('hidden');
         loginPage.classList.toggle('hidden');
