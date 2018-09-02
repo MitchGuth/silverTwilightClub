@@ -36,7 +36,7 @@ let getStats = (req, res) => {
         res.send('STATS FAIL');
     });
 };
-//still not optimized
+
 let getNews = (req, res) => {
     let userId = req.user.userId;
     db.many(`SELECT description FROM st_news WHERE user_id = ${userId}
