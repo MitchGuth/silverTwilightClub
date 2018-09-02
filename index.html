@@ -54,8 +54,9 @@
         </div>
         <div class="game-page hidden">
             <div class="status-bar">
-                <img class="avatar" src="images/st_member.png">
+                <img class="avatar" src="images/avatar.png">
                 <div class="player-stats">
+                    <h3 class="username">Kerrylon Varnish</h3>
                     <div class="money-stats">
                         <h3>Money: </h3>
                         <p class="current-values current-money"></p>
@@ -73,26 +74,31 @@
                 <h2 class="goodbye-message">Carl pulls you aside and lets you know that due to your business mishandlings you are no longer welcome at the Silver Twilight Club.</h2>
             </div>
             <div class="content-container">
+                <h3 class="action-money-title">Increase Wealth:</h3>
                 <div class="action-money-field action-fields">
-                    <h3 class="action-money-title">Choose A Money Action:</h3>
-                    <select id="company-selector" name="companies-dropdown-menu" class="dropdown">
-                        <option>-- Select A Company --</option>
-                    </select>
-                    <div class="form-group">
-                        <label for="bidInput">Bid: $</label>
-                        <input class="form-control" type="number" name="bid" id="bidInput" value="" min="" placeholder="Your Max Bid">
+                    <h3 class="money-option-1">Attempt a hostile takeover</h3>
+                    <div class="acquire hidden">
+                        <select id="company-selector" name="companies-dropdown-menu" class="dropdown">
+                            <option>-- Select a company to acquire--</option>
+                        </select>
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="bid" id="bidInput" value="" min="" placeholder="Enter your max bid">
+                        </div>
                     </div>
                 </div>
+                <h3 class="action-power-title">Gain Power:</h3>
                 <div class="action-power-field action-fields">
-                    <h3 class="action-power-title">Choose A Power Action:</h3>
-                    <select id="venue-selector" name="venues-dropdown-menu" class="dropdown">
-                        <option>-- Select A Venue --</option>
-                    </select>
-                    <select id="strategy-selector" name="stratagies-dropdown-menu" class="dropdown">
-                        <option>-- Select A Strategy --</option>
-                    </select>
+                    <h3 class="power-option-1">Seek influence</h3>
+                    <div class="influence hidden">
+                        <select id="venue-selector" name="venues-dropdown-menu" class="dropdown">
+                            <option>-- Select a social venue --</option>
+                        </select>
+                        <select id="strategy-selector" name="stratagies-dropdown-menu" class="dropdown">
+                            <option>-- Select your strategy --</option>
+                        </select>
+                    </div>
                 </div>
-                <button class="submit-action-btn" type="submit">Submit Actions</button>
+                <button class="btn submit-action-btn" type="submit">Submit Actions</button>
             </div>
         </div>
     </div>
