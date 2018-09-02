@@ -1,10 +1,6 @@
-DROP TABLE st_player;
-DROP TABLE st_player_stat;
-DROP TABLE st_company;
+DROP TABLE st_news, st_money_queue, st_player_stat, st_power_queue, st_company, st_player;
 DROP TABLE st_venue;
 DROP TABLE st_strategy;
-DROP TABLE st_money_queue;
-DROP TABLE st_powery_queue;
 
 CREATE TABLE st_player (
     id SERIAL PRIMARY KEY,
