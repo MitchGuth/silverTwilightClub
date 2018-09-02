@@ -3,25 +3,127 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    font-family: fantasy;
 }
 .hidden {
-    display: none;
+    display: none !important;
+}
+h1 {
+    margin: 0;
 }
 .main {
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.app-container {
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
+    background-color: black;
+    background-image: url("./images/silver-twilight.jpg");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .header {
     display:flex;
+    flex-direction: column;
     justify-content: center;
+    color: rgba(0, 0, 0, .0);
+    font-size: 25px;
+    text-shadow: 2px 2px 3px rgba(228, 235, 166, 0.6); 
+    text-align: center;
+    height: 45%;
+    width: 40%;
+}
+.btn {
+    background-color: rgba(228, 235, 166, 0.5);
+    border: none;
+    margin: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(65, 4, 4);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    cursor: pointer;
+    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8); 
+}
+.btn:hover {
+    background-color: rgba(144, 160, 116, 0.5);
+}
+.landing-page {
+    display: flex;
+    flex-direction: column; 
+    justify-content: top;
+    align-items: center;
+    height: 55%;
+    width: 40%;
+}
+.login-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-page {
+    display: flex;
+    flex-direction: column; 
+    justify-content: top;
+    align-items: center;
+    height: 55%;
+    width: 40%;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-control {
+    color:rgba(65, 4, 4);
+    margin: 5px;
+    width: 200px;
+    height: 30px;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
+    background-color: rgba(228, 235, 166, 0.8); 
+    cursor: text;
+}   
+.form-control::placeholder {
+    color:rgb(56, 27, 27);
+}
+.account-page {
+    display: flex;
+    flex-direction: column; 
+    justify-content: top;
+    align-items: center;
+    height: 55%;
+    width: 40%;
+}
+.enter-page {
+    display: flex;
+    flex-direction: column; 
+    justify-content: top;
+    align-items: center;
+    height: 55%;
+    width: 40%;
+}
+.greeting-box {
+    width: 300px;
+    color: rgba(228, 235, 166, 0.5);
+    padding: 15px 0 15px 0;
+    margin-bottom: 15px;
+    text-align: center;
+    background-color: rgba(56, 27, 27, 0.8);
+    box-shadow: 0px 0px 7px rgba(56, 27, 27, 0.8);  
+}
+.game-page {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
 }
 .status-bar {
     height: 20%;
