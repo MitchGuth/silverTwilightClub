@@ -154,20 +154,35 @@ let retrieveStrategies = () => {
 };
 
 let retrieveNews = () => {
+    let newsStatus = document.querySelector('.news-status');
     let newsList = document.querySelector('.current-news');
     getPromise = fetch(`${urlAPI}news/?token=${token}`);
-    getPromise 
+    // let recentNews = document.querySelector('.recent-news');
+    getPromise
         .then(function(response){
             return response.json()
         })
         .then(function(data) {
+        // console.log(data);
+        // console.log(JSON.parse(data));
         console.log(data);
-        console.log(data);
-        newsList.textContent = JSON.stringify(data);
-        
+        //set up to loop over and grab values to put in a ol and each is a li
+        for (let index = 0; index < data.length; index++){
+            // if (index === 0) {
+            //     newsPiece = data[index].description;
+            // }
+            // else {
+            // newsPiece = newsPiece + "\n" + data[index].description;
+            // }
+            // console.log(newsPiece);
+            let listItem = document.createElement("li");
+            listItem.textContent = data[index].description;
+            newsList.appendChild(listItem);
+        }
+        newsStatus.textContent = 'News Report: ';
         })
         .catch(e => {
-            newsList.textContent = 'No news for you today.';
+            newsStatus.textContent = 'No news for you today.';
             console.log('kabooooooooom');
             console.log(e.message);
     });
