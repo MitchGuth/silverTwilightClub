@@ -24,6 +24,7 @@ let printGamePage = (alive) => {
         enterPage.classList.toggle('hidden');
         gamePage.removeChild(goodbye);
         gamePage.classList.toggle('hidden');
+        submitActionButton.classList.toggle('hidden');
     } else {
         enterPage.classList.toggle('hidden');
         gamePage.removeChild(contentContainer);
@@ -157,24 +158,13 @@ let retrieveNews = () => {
     let newsStatus = document.querySelector('.news-status');
     let newsList = document.querySelector('.current-news');
     getPromise = fetch(`${urlAPI}news/?token=${token}`);
-    // let recentNews = document.querySelector('.recent-news');
     getPromise
         .then(function(response){
             return response.json()
         })
         .then(function(data) {
-        // console.log(data);
-        // console.log(JSON.parse(data));
         console.log(data);
-        //set up to loop over and grab values to put in a ol and each is a li
         for (let index = 0; index < data.length; index++){
-            // if (index === 0) {
-            //     newsPiece = data[index].description;
-            // }
-            // else {
-            // newsPiece = newsPiece + "\n" + data[index].description;
-            // }
-            // console.log(newsPiece);
             let listItem = document.createElement("li");
             listItem.textContent = data[index].description;
             newsList.appendChild(listItem);
@@ -215,7 +205,9 @@ let submitAction = actionInfo => {
     // console.log(postPromise);
     postPromise.then(() => {
         console.log('Actions Submitted');
+        submitActionButton.classList.toggle('hidden');
     });
+    
 };
 
 let captureActionInfo = event => {
