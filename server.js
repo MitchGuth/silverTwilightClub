@@ -56,7 +56,7 @@ let getNews = (req, res) => {
 let checkQueue = (req, res) => {
     // req.user is set by validateToken
     let userId = req.user.userId;
-    db.one(`SELECT *
+    db.many(`SELECT *
     FROM st_money_queue
     INNER JOIN st_power_queue
     ON st_money_queue.user_id = st_power_queue.user_id
@@ -66,9 +66,9 @@ let checkQueue = (req, res) => {
         res.send(userActions);
     })
     .catch(function(error) {
-        console.log('Error fetching queue for: ' + userID);
+        console.log('Error fetching queue for: ' + userId);
         console.log(error);
-        res.send('QUEUE FAIL');
+        res.end('QUEUE FAIL');
     });
 };
 
