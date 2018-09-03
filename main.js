@@ -222,6 +222,21 @@ let checkActionQueue = () => {
     })
 };
 
+let checkActionQueue = () => {
+    getPromise = fetch(`${urlAPI}checkQueue/?token=${token}`);
+    getPromise
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data) {
+            console.log(data);
+            submitActionButton.classList.toggle('hidden');
+        })
+        .catch(e => {
+            console.log(e.message);
+    })
+};
+
 
 let writeGamePage = () => {
     token = localStorage.getItem('silvertwilight');
