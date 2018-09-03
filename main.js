@@ -22,6 +22,7 @@ let welcomeMessage = document.querySelector('.welcome-message');
 let contentContainer = document.querySelector('.content-container');
 let header = document.querySelector('.header');
 let goodbye = document.querySelector('.goodbye');
+let usernameTitle = document.querySelector('.username');
 let money;
 let alive = true;
 let hasToken = false;
@@ -68,7 +69,8 @@ let retrieveStats = () => {
         console.log('error no stats');
         }
         username = response.name;
-        welcomeMessage.textContent = `Welcome, ${username}`
+        welcomeMessage.textContent = username;
+        usernameTitle.textContent = username;
         currentMoney.textContent = response.money;
         currentPower.textContent = response.power;
         money = response.money;
@@ -108,7 +110,7 @@ let retrieveCompanies = () => {
                 let minCost = response[index].min_cost;
                 option.id = `company${index}`;
                 companyList.appendChild(option);
-                document.getElementById(`company${index}`).textContent =`${company} - Min. Bid: $${minCost}`;
+                document.getElementById(`company${index}`).textContent =`${company}: $${minCost} min. bid`;
                 document.getElementById(`company${index}`).value = companyObject['id'];
                 companiesAndPrices[companyObject['id']] = minCost;
             }            

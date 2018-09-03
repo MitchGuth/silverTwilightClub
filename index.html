@@ -10,7 +10,7 @@
 <body>
     <div class="main">
         <div class="header">
-            <h1 class="game-title">Silver Twilight Club</h1>
+            <p class="game-title">Silver Twilight Club</p>
         </div>
         <div class="landing-page">
             <div class="login-box">
@@ -21,10 +21,10 @@
         <div class="login-page hidden">
             <form data-silvertwilight="form">
                 <div class="form-group">
-                    <input class="form-control" type="email" name="email" id="emailInput1" value="" placeholder="email@email.com">
+                    <input class="form-control" type="email" name="email" id="emailInput1" value="" placeholder=" email@email.com">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="password" id="passwordInput1" value="" placeholder="password">
+                    <input class="form-control" type="password" name="password" id="passwordInput1" value="" placeholder=" password">
                 </div>
                     <button type="button" class="btn btn-default submit-login-btn">Submit</button>
             </form>
@@ -32,23 +32,24 @@
         <div class="account-page hidden">
             <form data-silvertwilight="form">
                 <div class="form-group">
-                    <input class="form-control" type="email" name="account-email" id="emailInput2" value="" placeholder="email@email.com">
+                    <input class="form-control" type="email" name="account-email" id="emailInput2" value="" placeholder=" Enter email address">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="account-password-1" id="passwordInput2" value="" placeholder="Choose password">
+                    <input class="form-control" type="password" name="account-password-1" id="passwordInput2" value="" placeholder=" Choose password">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="account-password-2" id="passwordInput3" value="" placeholder="Enter password again">
+                    <input class="form-control" type="password" name="account-password-2" id="passwordInput3" value="" placeholder=" Enter password again">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="name" name="account-name" id="nameInput" value="" placeholder="Sinister Pseudonym Esq.">
+                    <input class="form-control" type="name" name="account-name" id="nameInput" value="" placeholder=" Choose a pseudonym">
                 </div>
                     <button type="button" class="btn btn-default submit-account-btn">Join the Club</button>
             </form>
         </div>
         <div class="enter-page hidden">
             <div class="greeting-box">
-                <h1 class="welcome-message"></h1>
+                <h2>Welcome,</h2>
+                <h2 class="welcome-message"></h2>
             </div>
             <button type="button" class="btn btn-default enter-btn">Enter</button>
         </div>
@@ -56,7 +57,7 @@
             <div class="status-bar">
                 <img class="avatar" src="images/avatar.png">
                 <div class="player-stats">
-                    <h3 class="username">Kerrylon Varnish</h3>
+                    <h3 class="username"></h3>
                     <div class="money-stats">
                         <h3>Money: </h3>
                         <p class="current-values current-money"></p>
@@ -68,37 +69,38 @@
                 </div>    
             </div>
             <div class="news-section">
+                <h3 class="action-title action-money-title">Last Night's News:</h3>
                 <p class="current-news"></p>
             </div>
             <div class="goodbye">
                 <h2 class="goodbye-message">Carl pulls you aside and lets you know that due to your business mishandlings you are no longer welcome at the Silver Twilight Club.</h2>
             </div>
             <div class="content-container">
-                <h3 class="action-money-title">Increase Wealth:</h3>
+                <h3 class="action-title action-money-title">Money Action:</h3>
                 <div class="action-money-field action-fields">
-                    <h3 class="money-option-1">Attempt a hostile takeover</h3>
+                    <h3 class="money-option-1"> Attempt hostile takeover </h3>
                     <div class="acquire hidden">
                         <select id="company-selector" name="companies-dropdown-menu" class="dropdown">
-                            <option>-- Select a company to acquire--</option>
+                            <option>-- Select company --</option>
                         </select>
                         <div class="form-group">
-                            <input class="form-control" type="number" name="bid" id="bidInput" value="" min="" placeholder="Enter your max bid">
+                            <input class="form-control" type="number" name="bid" id="bidInput" value="" min="" placeholder=" Enter maximum bid">
                         </div>
                     </div>
                 </div>
-                <h3 class="action-power-title">Gain Power:</h3>
+                <h3 class="action-title action-power-title">Power Action:</h3>
                 <div class="action-power-field action-fields">
-                    <h3 class="power-option-1">Seek influence</h3>
+                    <h3 class="power-option-1"> Seek social influence </h3>
                     <div class="influence hidden">
                         <select id="venue-selector" name="venues-dropdown-menu" class="dropdown">
-                            <option>-- Select a social venue --</option>
+                            <option>-- Select venue --</option>
                         </select>
                         <select id="strategy-selector" name="stratagies-dropdown-menu" class="dropdown">
-                            <option>-- Select your strategy --</option>
+                            <option>-- Select strategy --</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn submit-action-btn" type="submit">Submit Actions</button>
+                <button class="btn submit-action-btn" type="submit">Submit</button>
             </div>
         </div>
     </div>

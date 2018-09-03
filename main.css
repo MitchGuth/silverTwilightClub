@@ -6,52 +6,67 @@ html, body {
     display: flex;
     justify-content: center;
     font-family: fantasy;
+    position: relative;
+    background-color: black;
 }
 .hidden {
     display: none !important;
 }
 h1 {
     margin: 0;
+    width: 100%;
+}
+h2 {
+    margin:0;
 }
 h3 {
     margin: 0;
+    font-size: 1.4rem;
+}
+p {
+    margin: 0;
+    text-align: left;
+    font-size: 1.2rem;
 }
 .main {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    background-color: black;
     background-image: url("./images/silver-twilight.jpg");
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-repeat: no-repeat;
     background-position: center;
+    position: absolute;
 }
 .header {
     display:flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
+    height: 40%;
+    width: 80%;
+}
+.game-title {
     color: rgba(0, 0, 0, .0);
-    font-size: 25px;
+    font-size: 3em;
     text-shadow: 2px 2px 3px rgba(228, 235, 166, 0.6); 
     text-align: center;
-    height: 45%;
-    width: 40%;
+    width: 100%;
 }
 .btn {
-    background-color: rgba(228, 235, 166, 0.5);
     border: none;
     margin: 10px;
     width: 150px;
     height: 40px;
-    font-size: 18px;
+    font-size: 1.17rem;
     font-weight: bold;
     color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     cursor: pointer;
+    background-color: rgba(231, 235, 166, 0.7);
     box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8); 
 }
 .btn:hover {
@@ -66,6 +81,7 @@ h3 {
     width: 40%;
 }
 .login-box {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -86,18 +102,18 @@ form {
     align-items: center;
 }
 .form-control {
-    color:rgba(65, 4, 4);
+    color:black;
     margin: 5px;
     width: 200px;
-    height: 30px;
-    font-size: 16px;
+    height: 2.5rem;
+    font-size: 1.1rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
     background-color: rgba(228, 235, 166, .5);
     border-color: rgba(228, 235, 166, .5);
     cursor: text;
 }   
 .form-control::placeholder {
-    color:rgb(56, 27, 27);
+    color:black
 }
 .account-page {
     display: flex;
@@ -116,33 +132,32 @@ form {
     width: 40%;
 }
 .greeting-box {
-    width: 300px;
-    color: rgba(228, 235, 166, 0.5);
+    width: 20rem;
+    color: black;
     padding: 15px 0 15px 0;
     margin-bottom: 15px;
     text-align: center;
-    background-color: rgba(56, 27, 27, 0.8);
-    box-shadow: 0px 0px 7px rgba(56, 27, 27, 0.8);  
+    background-color: rgba(231, 235, 166, 0.7);
+    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8); 
 }
 .game-page {
-    height: 80%;
-    width: 40%;
+    height: 100%;
+    width: 100%;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    background-color: rgba(197, 178, 124, 0.6); ;
-    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8);   
+    background-color: rgba(231, 235, 166, 0.7);
+    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8);
+    margin-top: 2em;  
+    margin-bottom: 2em;    
 }
 .status-bar {
     padding: 0;
-    height: 25%;
+    height: 10rem;
     width: 100%;
     display: flex;
     justify-content: left;
     /* background-color: rgba(233, 209, 144, 0.8); ; */
     background-image: url("./images/parchment.jpg");
-    background-size: fill;
+    background-size: cover;
     background-repeat: no-repeat;
     background-repeat: no-repeat;
     background-position: center;
@@ -150,38 +165,48 @@ form {
 .player-stats {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    justify-content: center;
+    height: 100%;
+    width: 30em;
+    margin: 0;
 }
 .username {
-    font-size: 30px;
+    font-size: 1.5em;
 }
 .money-stats {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     padding-right: 2em;
 }
 .power-stats {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     padding-right: 2em;
 }
 .current-values {
-    padding-left: 1em;
-    font-size: 13px;
+    margin: 0;
+    padding-left: .5em;
+    font-size: 1.2em;
     font-weight: bold;
     color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .avatar {
     height: 110%;
-    margin-left: 10px;    
+    margin-left: 0;    
 }
-
+.news-section {
+    padding: 7.5%;
+    color: rgb(65, 4, 4);;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.1rem;
+    text-align: center;
+}
 .goodbye-message {
     padding: 1em;
 }
 .content-container {
-    padding: 1em;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -190,16 +215,22 @@ form {
     font-weight: bold;
     color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    width: 80%;
-    height: 80%;
-    overflow-y: auto;
+    width: 100%;
+    margin-bottom: 1.5rem;
 }
 .action-fields {
-    padding: 10px;
-    margin: 10px;
-    width: 100%;
-    background-color: rgba(65, 4, 4, .8);
+    padding: .5rem;
+    margin-bottom: 2rem;
+    width: 85%;
+    background-color: rgba(110, 2, 2, 0.788);
     color: rgba(228, 235, 166, .7); 
+    display: flex;
+    flex-direction: column;
+}
+.submit-action-btn {
+    background-color: rgba(110, 2, 2, 0.788);
+    color: rgba(228, 235, 166, .7); 
+    font-size: 1.3rem;
 }
 .action-money-field {
     display: flex;
@@ -213,12 +244,34 @@ form {
     align-items: center;
     cursor: pointer;
 }
+.action-title {
+    font-family: fantasy;
+    font-size: 1.5rem;
+    color: black;
+}
+.acquire {
+    width:100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.influence {
+    width:100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .dropdown {
-    color:rgba(65, 4, 4);
-    margin: 5px;
-    width: 100%;
-    height: 30px;
-    font-size: 16px;
+    color:black;
+    margin-bottom: 1rem;
+    padding: 0;
+    width: 80%;
+    height: 2.5rem;
+    font-size: 1.1rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
     background-color: rgba(228, 235, 166, .5);
 }
