@@ -18,7 +18,7 @@ let doBidWinner = function(highbid) {
         .then(function (chance) { 
             console.log(`Rolled ${roll} and a chance of ${chance.chance}`);
             if (roll <= chance.chance) {
-                let bonusAmount = highbid.bid_amount * roll;
+                let bonusAmount = highbid.bid_amount * ((roll * .01) + 1 );
                 bonusCash = highbid.bid_amount + bonusAmount;
                 console.log('You WIN' + bonusCash);
                 adjustedCash = adjustedCash + bonusCash;
