@@ -28,7 +28,7 @@ let doBidWinner = function(highbid) {
             console.log(`UPDATE st_player_stat SET money=${adjustedCash} where user_id=${highbid.user_id}`);
             db.none(`UPDATE st_player_stat SET money=${adjustedCash} where user_id=${highbid.user_id}`)
             .then(function() {
-                let description = `You bid ${highbid.bid_amount} for ${highbid.name} and won. You made ${bonusCash}`;
+                let description = `You won the auction, and paid $${highbid.bid_amount} for ${highbid.name}, which profited $${bonusCash} after the sale.`;
                 db.none(`INSERT INTO st_news (timestamp, user_id, description)
                 VALUES (current_timestamp, ${highbid.user_id}, '${description}');`);
             })
