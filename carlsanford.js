@@ -28,7 +28,7 @@ let doBidWinner = function(highbid) {
             console.log(`UPDATE st_player_stat SET money=${adjustedCash} where user_id=${highbid.user_id}`);
             db.none(`UPDATE st_player_stat SET money=${adjustedCash} where user_id=${highbid.user_id}`)
             .then(function() {
-                let description = `You bid ${highbid.bid_amount} on company ${highbid.company_id} and won. You made ${adjustedCash}`;
+                let description = `You bid ${highbid.bid_amount} for ${highbid.name} and won. You made ${bonusCash}`;
                 db.none(`INSERT INTO st_news (timestamp, user_id, description)
                 VALUES (current_timestamp, ${highbid.user_id}, '${description}');`);
             })
@@ -47,11 +47,18 @@ let processCompanyQueueWinner = function() {
     db.any('SELECT DISTINCT company_id FROM st_money_queue;')
     .then(function(companyIDList) {
         for (let company of companyIDList) {
-            db.one(`SELECT user_id, bid_amount, company_id FROM 
-                st_money_queue WHERE bid_amount = (select max(bid_amount) 
-                FROM st_money_queue where company_id = ${company.company_id} LIMIT 1);`)
+            // db.one(`SELECT user_id, bid_amount, company_id FROM 
+            //     st_money_queue WHERE bid_amount = (select max(bid_amount) 
+            //     FROM st_money_queue where company_id = ${company.company_id} LIMIT 1);`)
+            db.one(`SELECT st_money_queue.user_id, st_money_queue.bid_amount, st_money_queue.company_id, 
+            st_company.id, st_company.name 
+            FROM st_money_queue 
+            INNER JOIN st_company
+            ON st_money_queue.company_id = st_company.id
+            WHERE st_money_queue.bid_amount = (SELECT max(st_money_queue.bid_amount) FROM st_money_queue WHERE st_money_queue.company_id = ${company.company_id})
+            LIMIT 1;`)
             .then( function(highbid) {
-                console.log(`User ${highbid.user_id} has the highest bid of ${highbid.bid_amount} for company ${highbid.company_id}`);
+                console.log(`User ${highbid.user_id} has the highest bid of ${highbid.bid_amount} for company ${highbid.name}`);
                 doBidWinner(highbid);
             })
             .catch(error => {
