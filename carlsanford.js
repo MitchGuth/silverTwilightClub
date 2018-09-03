@@ -109,15 +109,15 @@ let processPowerQueue = function() {
             }
             console.log('Chance is: ' + chance);
             if (roll <= chance) {
-                resultMsg = `Excellent! Your attempt to use ${action.strategy_name} at ${action.location_name} was a success, with a dice roll of ${roll}.`;
+                resultMsg = `Excellent! Your attempt to use ${action.strategy_name} at ${action.location_name} was a success and you have gained power.`;
                 adjustedPower = action.power + 1;
                 console.log(resultMsg + " " + adjustedPower);
             } else if (roll == 100) {
-                resultMsg = `Catastrophe! Your attempt to use ${action.strategy_name} at ${action.location_name} was an utter failure, with a dice roll of ${roll} and you have lost some power.`;
+                resultMsg = `Catastrophe! Your attempt to use ${action.strategy_name} at ${action.location_name} was an utter failure and you have lost some power.`;
                 adjustedPower = action.power -1;
                 console.log(resultMsg + " " + adjustedPower);
             } else {
-                resultMsg = `Your attempt to use ${action.strategy_name} at ${action.location_name} went unnoticed those present and did not gain you any more power. Better luck next time.`;
+                resultMsg = `Your attempt to use ${action.strategy_name} at ${action.location_name} went unnoticed by those present and did not gain you any more power. Better luck next time.`;
                 adjustedPower = action.power;
                 console.log(resultMsg + " " + adjustedPower); 
             }
