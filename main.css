@@ -151,7 +151,7 @@ form {
 }
 .status-bar {
     padding: 0;
-    height: 10rem;
+    height: 8rem;
     width: 100%;
     display: flex;
     justify-content: left;
@@ -172,6 +172,7 @@ form {
 }
 .username {
     font-size: 1.5em;
+    color: rgb(65, 4, 4);;
 }
 .money-stats {
     display: flex;
@@ -197,13 +198,17 @@ form {
 }
 .news-section {
     padding: 7.5%;
-    color: rgb(65, 4, 4);;
+    color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.1rem;
     text-align: center;
 }
-.goodbye-message {
-    padding: 1em;
+.goodbye {
+    padding: 7.5%;
+    color: rgb(65, 4, 4);;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.1rem;
+    text-align: center;
 }
 .content-container {
     padding: 0;
