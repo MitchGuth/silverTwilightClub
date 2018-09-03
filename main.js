@@ -110,7 +110,7 @@ let retrieveCompanies = () => {
                 let minCost = response[index].min_cost;
                 option.id = `company${index}`;
                 companyList.appendChild(option);
-                document.getElementById(`company${index}`).textContent =`${company}: $${minCost} min. bid`;
+                document.getElementById(`company${index}`).textContent =`${company}: $${minCost} min bid`;
                 document.getElementById(`company${index}`).value = companyObject['id'];
                 companiesAndPrices[companyObject['id']] = minCost;
             }            
@@ -189,13 +189,14 @@ let retrieveNews = () => {
         console.log(data);
         console.log(data);
         newsList.textContent = JSON.stringify(data);
-        
+        showGamePage();
         })
         .catch(e => {
             newsList.textContent = 'No news for you today.';
             console.log('kabooooooooom');
             console.log(e.message);
-    });
+            showGamePage();
+        });
 };
 
 
@@ -206,7 +207,6 @@ let writeGamePage = () => {
     retrieveVenues();
     retrieveStrategies();
     retrieveNews();
-    showGamePage();
 };
 
 

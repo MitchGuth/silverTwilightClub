@@ -155,7 +155,6 @@ form {
     width: 100%;
     display: flex;
     justify-content: left;
-    /* background-color: rgba(233, 209, 144, 0.8); ; */
     background-image: url("./images/parchment.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -241,13 +240,17 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
 }
 .action-power-field {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.option {
     cursor: pointer;
+}
+.option:hover {
+    color: rgb(47, 2, 2)
 }
 .action-title {
     font-family: fantasy;
@@ -279,4 +282,22 @@ form {
     font-size: 1.1rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
     background-color: rgba(228, 235, 166, .5);
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 1020px)  {
+    .game-page {
+        width: 50%; 
+        margin-top: 4em;  
+        margin-bottom: 4em;
+    }
+    .avatar {
+        height: 120%;
+        margin-left: 1.5rem;  
+        margin-right: 1rem;      
+    }
+    .game-title {
+        font-size: 4em;
+        margin-bottom: 2.3rem;
+    }
 }
