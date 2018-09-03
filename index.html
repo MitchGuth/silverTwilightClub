@@ -50,6 +50,7 @@
             <div class="greeting-box">
                 <h2>Welcome,</h2>
                 <h2 class="welcome-message"></h2>
+                <p class="goodbye-message">Fill your glass, light a cigar and impose your will on the world.</p>
             </div>
             <button type="button" class="btn btn-default enter-btn">Enter</button>
         </div>
@@ -69,8 +70,10 @@
                 </div>    
             </div>
             <div class="news-section">
-                <h3 class="action-title action-money-title">Last Night's News:</h3>
-                <p class="current-news"></p>
+            <h3 class="action-title news-status">Last Night's News:</h3>
+                <ul class ="current-news">
+                    <!-- li's created by main.js for recent news -->
+                </ul>
             </div>
             <div class="goodbye">
                 <h3 class="action-title">Dismissal Notice:</h3>
@@ -102,7 +105,11 @@
                         </select>
                     </div>
                 </div>
-                <button class="btn submit-action-btn" type="submit">Submit</button>
+                <button class="btn submit-action-btn hidden" type="submit">Submit</button>
+                <div class="submit-message hidden">
+                    <h3 class="action-title">Actions Submitted</h3>
+                    <p class="goodbye-message">May the Old Ones not judge you too harshly. Come back later to learn your fate.</p>
+                </div>
             </div>
         </div>
     </div>

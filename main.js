@@ -23,6 +23,8 @@ let contentContainer = document.querySelector('.content-container');
 let header = document.querySelector('.header');
 let goodbye = document.querySelector('.goodbye');
 let usernameTitle = document.querySelector('.username');
+let submitMessage = document.querySelector('.submit-message');
+
 let money;
 let alive = true;
 let hasToken = false;
@@ -46,6 +48,7 @@ let showGamePage = () => {
     if (alive) {
         gamePage.removeChild(goodbye);
         gamePage.classList.toggle('hidden');
+        submitActionButton.classList.toggle('hidden');
     } else {
         gamePage.removeChild(contentContainer);
         gamePage.classList.toggle('hidden');
@@ -179,24 +182,44 @@ let retrieveStrategies = () => {
 };
 
 let retrieveNews = () => {
+    let newsStatus = document.querySelector('.news-status');
     let newsList = document.querySelector('.current-news');
     getPromise = fetch(`${urlAPI}news/?token=${token}`);
-    getPromise 
+    getPromise
         .then(function(response){
             return response.json()
         })
         .then(function(data) {
         console.log(data);
-        console.log(data);
-        newsList.textContent = JSON.stringify(data);
+        for (let index = 0; index < data.length; index++){
+            let listItem = document.createElement("li");
+            listItem.textContent = data[index].description;
+            newsList.appendChild(listItem);
+        }
+        newsStatus.textContent = 'News Report: ';
         showGamePage();
         })
         .catch(e => {
-            newsList.textContent = 'No news for you today.';
-            console.log('kabooooooooom');
+            newsStatus.textContent = 'No news for you today.';
             console.log(e.message);
             showGamePage();
         });
+};
+
+let checkActionQueue = () => {
+    getPromise = fetch(`${urlAPI}checkQueue/?token=${token}`);
+    getPromise
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data) {
+            console.log(data);
+            submitActionButton.classList.toggle('hidden');
+            submitMessage.classList.toggle('hidden');
+        })
+        .catch(e => {
+            console.log(e.message);
+    })
 };
 
 
@@ -207,6 +230,7 @@ let writeGamePage = () => {
     retrieveVenues();
     retrieveStrategies();
     retrieveNews();
+    checkActionQueue();
 };
 
 
@@ -225,7 +249,12 @@ let submitAction = actionInfo => {
     // console.log(postPromise);
     postPromise.then(() => {
         console.log('Actions Submitted');
+        submitActionButton.classList.toggle('hidden');
+        submitMessage.classList.toggle('hidden');
+        influence.classList.toggle('hidden');
+        acquire.classList.toggle('hidden');
     });
+    
 };
 
 let captureActionInfo = event => {

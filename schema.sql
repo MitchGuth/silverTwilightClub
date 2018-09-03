@@ -1,3 +1,7 @@
+DROP TABLE st_news, st_money_queue, st_player_stat, st_power_queue, st_company, st_player;
+DROP TABLE st_venue;
+DROP TABLE st_strategy;
+
 CREATE TABLE st_player (
     id SERIAL PRIMARY KEY,
     name  varchar(200) NOT NULL,
@@ -8,15 +12,15 @@ CREATE TABLE st_player (
 CREATE TABLE st_player_stat (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES st_player(id),
-    power varchar(200) NOT NULL,
-    money varchar(200) NOT NULL
+    power INTEGER NOT NULL,
+    money INTEGER NOT NULL
 );
 
 CREATE TABLE st_company (
     id SERIAL PRIMARY KEY,
     name varchar(200) NOT NULL,
     min_cost INTEGER NOT NULL,
-    chance varchar(200) NOT NULL
+    chance INTEGER NOT NULL
 );
 
 CREATE TABLE st_venue (

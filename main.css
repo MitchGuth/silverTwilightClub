@@ -35,7 +35,7 @@ p {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-image: url("./images/silver-twilight.jpg");
+    background-image: url("./images/silver-twilight2.jpg");
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-repeat: no-repeat;
@@ -52,13 +52,13 @@ p {
 .game-title {
     color: rgba(0, 0, 0, .0);
     font-size: 3em;
-    text-shadow: 2px 2px 3px rgba(228, 235, 166, 0.6); 
+    text-shadow: 2px 2px 3px rgba(228, 235, 166, 0.7); 
     text-align: center;
     width: 100%;
 }
 .btn {
     border: none;
-    margin: 10px;
+    margin: 1rem;
     width: 150px;
     height: 40px;
     font-size: 1.17rem;
@@ -103,7 +103,7 @@ form {
 }
 .form-control {
     color:black;
-    margin: 5px;
+    margin: .6rem;
     width: 200px;
     height: 2.5rem;
     font-size: 1.1rem;
@@ -134,11 +134,16 @@ form {
 .greeting-box {
     width: 20rem;
     color: black;
-    padding: 15px 0 15px 0;
+    padding: 20px 20px 20px 20px;
     margin-bottom: 15px;
     text-align: center;
     background-color: rgba(231, 235, 166, 0.7);
-    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8); 
+    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8);     
+}
+.goodbye-message {
+    color: rgb(46, 4, 4);;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.1rem;
 }
 .game-page {
     height: 100%;
@@ -196,13 +201,22 @@ form {
     margin-left: 0;    
 }
 .news-section {
-    padding: 7.5%;
+    padding-top: 2rem;
+    padding-left: 7.5%;
+    padding-right: 7.5%;
     color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.1rem;
     text-align: center;
 }
 .goodbye {
+    padding: 7.5%;
+    color: rgb(65, 4, 4);;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.1rem;
+    text-align: center;
+}
+.submit-message {
     padding: 7.5%;
     color: rgb(65, 4, 4);;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -232,6 +246,7 @@ form {
     flex-direction: column;
 }
 .submit-action-btn {
+    margin-top: 2rem;
     background-color: rgba(110, 2, 2, 0.788);
     color: rgba(228, 235, 166, .7); 
     font-size: 1.3rem;
@@ -245,9 +260,15 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 0;
 }
 .option {
     cursor: pointer;
+    height: 1rem;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
 }
 .option:hover {
     color: rgb(47, 2, 2)
@@ -301,3 +322,4 @@ form {
         margin-bottom: 2.3rem;
     }
 }
+
