@@ -4,7 +4,6 @@ env.sh
 /.tmp
 /build
 /dist
-/images
 
 # dependencies
 /node_modules
