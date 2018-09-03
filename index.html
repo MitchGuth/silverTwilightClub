@@ -9,19 +9,22 @@
 </head>
 <body>
     <div class="main">
+        <div class="header">
+            <p class="game-title">Silver Twilight Club</p>
+        </div>
         <div class="landing-page">
-            <button type="button" class="btn btn-default login-btn">Login</button>
-            <button type="button" class="btn btn-default account-btn">Create Account</button>
+            <div class="login-box">
+                <button type="button" class="btn login-btn">Sign In</button>
+                <button type="button" class="btn account-btn">Create Account</button>
+            </div>
         </div>
         <div class="login-page hidden">
             <form data-silvertwilight="form">
                 <div class="form-group">
-                    <label for="emailInput1">Email</label>
-                    <input class="form-control" type="email" name="email" id="emailInput1" value="" placeholder="email@email.com">
+                    <input class="form-control" type="email" name="email" id="emailInput1" value="" placeholder=" email@email.com">
                 </div>
                 <div class="form-group">
-                    <label for="passwordInput1">Password</label>
-                    <input class="form-control" type="password" name="password" id="passwordInput1" value="" placeholder="password">
+                    <input class="form-control" type="password" name="password" id="passwordInput1" value="" placeholder=" password">
                 </div>
                     <button type="button" class="btn btn-default submit-login-btn">Submit</button>
             </form>
@@ -29,36 +32,33 @@
         <div class="account-page hidden">
             <form data-silvertwilight="form">
                 <div class="form-group">
-                    <label for="emailInput2">Email</label>
-                    <input class="form-control" type="email" name="account-email" id="emailInput2" value="" placeholder="email@email.com">
+                    <input class="form-control" type="email" name="account-email" id="emailInput2" value="" placeholder=" Enter email address">
                 </div>
                 <div class="form-group">
-                    <label for="passwordInput2">Password</label>
-                    <input class="form-control" type="password" name="account-password-1" id="passwordInput2" value="" placeholder="enter password">
+                    <input class="form-control" type="password" name="account-password-1" id="passwordInput2" value="" placeholder=" Choose password">
                 </div>
                 <div class="form-group">
-                    <label for="passwordInput3">Password</label>
-                    <input class="form-control" type="password" name="account-password-2" id="passwordInput3" value="" placeholder="enter password again">
+                    <input class="form-control" type="password" name="account-password-2" id="passwordInput3" value="" placeholder=" Enter password again">
                 </div>
                 <div class="form-group">
-                    <label for="nameInput">Player Name</label>
-                    <input class="form-control" type="name" name="account-name" id="nameInput" value="" placeholder="Something Sinister Esq.">
+                    <input class="form-control" type="name" name="account-name" id="nameInput" value="" placeholder=" Choose a pseudonym">
                 </div>
                     <button type="button" class="btn btn-default submit-account-btn">Join the Club</button>
             </form>
         </div>
         <div class="enter-page hidden">
-            <h1>Identity Verified</h1>
-            <h2>Click Enter to Impose Your Will on the World</h2>
+            <div class="greeting-box">
+                <h2>Welcome,</h2>
+                <h2 class="welcome-message"></h2>
+                <p class="goodbye-message">Fill your glass, light a cigar and impose your will on the world.</p>
+            </div>
             <button type="button" class="btn btn-default enter-btn">Enter</button>
         </div>
         <div class="game-page hidden">
-            <div class="header">
-                <h1 class="game-title">Silver Twilight Club</h1>
-            </div>
             <div class="status-bar">
-                <img class="avatar" src="images/st_member.png">
+                <img class="avatar" src="images/avatar.png">
                 <div class="player-stats">
+                    <h3 class="username"></h3>
                     <div class="money-stats">
                         <h3>Money: </h3>
                         <p class="current-values current-money"></p>
@@ -70,35 +70,54 @@
                 </div>    
             </div>
             <div class="news-section">
+<<<<<<< HEAD
+            <h3 class="action-title news-status">Last Night's News:</h3>
+=======
                 <p class="news-status"></p>
+>>>>>>> master
                 <ul class ="current-news">
                     <!-- li's created by main.js for recent news -->
                 </ul>
             </div>
             <div class="goodbye">
-                <h2 class="goodbye-message">Carl pulls you aside and lets you know that due to your business mishandlings you are no longer welcome at the Silver Twilight Club.</h2>
+                <h3 class="action-title">Dismissal Notice:</h3>
+                <p class="goodbye-message">Carl pulls you aside and lets you know that due to your business mishandlings you are no longer welcome at the Silver Twilight Club.</p>
+                <h3 class="action-title">Goodbye.</h3>
             </div>
             <div class="content-container">
+                <h3 class="action-title action-money-title">Money Action:</h3>
                 <div class="action-money-field action-fields">
-                    <h3 class="action-money-title">Choose A Money Action:</h3>
-                    <select id="company-selector" name="companies-dropdown-menu" class="dropdown">
-                        <option>-- Select A Company --</option>
-                    </select>
-                    <div class="form-group">
-                        <label for="bidInput">Bid: $</label>
-                        <input class="form-control" type="number" name="bid" id="bidInput" value="" min="" placeholder="Your Max Bid">
+                    <h3 class="option money-option-1"> Attempt hostile takeover </h3>
+                    <div class="acquire hidden">
+                        <select id="company-selector" name="companies-dropdown-menu" class="dropdown">
+                            <option>-- Select company --</option>
+                        </select>
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="bid" id="bidInput" value="" min="" placeholder=" Enter max bid">
+                        </div>
                     </div>
                 </div>
+                <h3 class="action-title action-power-title">Power Action:</h3>
                 <div class="action-power-field action-fields">
-                    <h3 class="action-power-title">Choose A Power Action:</h3>
-                    <select id="venue-selector" name="venues-dropdown-menu" class="dropdown">
-                        <option>-- Select A Venue --</option>
-                    </select>
-                    <select id="strategy-selector" name="stratagies-dropdown-menu" class="dropdown">
-                        <option>-- Select A Strategy --</option>
-                    </select>
+                    <h3 class="option power-option-1"> Seek social influence </h3>
+                    <div class="influence hidden">
+                        <select id="venue-selector" name="venues-dropdown-menu" class="dropdown">
+                            <option>-- Select venue --</option>
+                        </select>
+                        <select id="strategy-selector" name="stratagies-dropdown-menu" class="dropdown">
+                            <option>-- Select strategy --</option>
+                        </select>
+                    </div>
                 </div>
+                <button class="btn submit-action-btn hidden" type="submit">Submit</button>
+                <div class="submit-message hidden">
+                    <h3 class="action-title">Actions Submitted</h3>
+                    <p class="goodbye-message">May the Old Ones not judge you too harshly. Come back later to learn your fate.</p>
+                </div>
+<<<<<<< HEAD
+=======
                 <button class="submit-action-btn hidden" type="submit">Submit Actions</button>
+>>>>>>> master
             </div>
         </div>
     </div>

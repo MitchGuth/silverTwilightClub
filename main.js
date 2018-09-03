@@ -7,6 +7,10 @@ let submitLoginButton = document.querySelector('.submit-login-btn');
 let submitAccountButton = document.querySelector('.submit-account-btn');
 let enterButton = document.querySelector('.enter-btn');
 let submitActionButton = document.querySelector('.submit-action-btn');
+let money1Button = document.querySelector('.money-option-1');
+let power1Button = document.querySelector('.power-option-1');
+let acquire = document.querySelector('.acquire');
+let influence = document.querySelector('.influence');
 
 // Select pages to hide or show
 let landingPage = document.querySelector('.landing-page');
@@ -14,29 +18,47 @@ let loginPage = document.querySelector('.login-page');
 let accountPage = document.querySelector('.account-page');
 let enterPage = document.querySelector('.enter-page');
 let gamePage = document.querySelector('.game-page');
-let money;
-let companiesAndPrices = {};
+let welcomeMessage = document.querySelector('.welcome-message');
 let contentContainer = document.querySelector('.content-container');
+let header = document.querySelector('.header');
 let goodbye = document.querySelector('.goodbye');
+let usernameTitle = document.querySelector('.username');
+let submitMessage = document.querySelector('.submit-message');
 
-let printGamePage = (alive) => {
+let money;
+let alive = true;
+let hasToken = false;
+let username;
+let companiesAndPrices = {};
+
+let showMoneyOption1 = event => {
+    event.preventDefault();
+    acquire.classList.toggle('hidden');
+}
+
+
+let showPowerOption1 = event => {
+    event.preventDefault();
+    influence.classList.toggle('hidden');
+}
+
+let showGamePage = () => {
+    header.classList.toggle('hidden');
+    enterPage.classList.toggle('hidden');
     if (alive) {
-        enterPage.classList.toggle('hidden');
         gamePage.removeChild(goodbye);
         gamePage.classList.toggle('hidden');
         submitActionButton.classList.toggle('hidden');
     } else {
-        enterPage.classList.toggle('hidden');
         gamePage.removeChild(contentContainer);
         gamePage.classList.toggle('hidden');
     }     
 };
 
 let retrieveStats = () => {
-    let alive = true;
     let currentMoney = document.querySelector('.current-money');
     let currentPower = document.querySelector('.current-power');
-    getPromise = fetch(`${urlAPI}stats/?token=${token}`);
+    let getPromise = fetch(`${urlAPI}stats/?token=${token}`);
     getPromise.catch(e => {
         console.log(e.message);
     });
@@ -48,17 +70,22 @@ let retrieveStats = () => {
         .then(function(response) {
         if (response === null){
         console.log('error no stats');
-        } if (response.money <= 0 || response.power <= 0){
-            currentMoney.textContent = response.money;
-            currentPower.textContent = response.power;
-            alive = false;
-            printGamePage(alive);
-        } else {
-            currentMoney.textContent = response.money;
-            currentPower.textContent = response.power;
-            money = response.money;
-            printGamePage(alive);
         }
+        username = response.name;
+        welcomeMessage.textContent = username;
+        usernameTitle.textContent = username;
+        currentMoney.textContent = response.money;
+        currentPower.textContent = response.power;
+        money = response.money;
+        if (response.money <= 0 || response.power <= 0){
+            alive = false;
+        };
+        if (hasToken) {        
+            landingPage.classList.toggle('hidden');
+        } else {
+            loginPage.classList.toggle('hidden');
+        };
+        enterPage.classList.toggle('hidden');
     });
 };
 
@@ -86,7 +113,7 @@ let retrieveCompanies = () => {
                 let minCost = response[index].min_cost;
                 option.id = `company${index}`;
                 companyList.appendChild(option);
-                document.getElementById(`company${index}`).text =`${company} - Min. Bid: $${minCost}`;
+                document.getElementById(`company${index}`).textContent =`${company}: $${minCost} min bid`;
                 document.getElementById(`company${index}`).value = companyObject['id'];
                 companiesAndPrices[companyObject['id']] = minCost;
             }            
@@ -170,11 +197,29 @@ let retrieveNews = () => {
             newsList.appendChild(listItem);
         }
         newsStatus.textContent = 'News Report: ';
+        showGamePage();
         })
         .catch(e => {
             newsStatus.textContent = 'No news for you today.';
             console.log(e.message);
-    });
+            showGamePage();
+        });
+};
+
+let checkActionQueue = () => {
+    getPromise = fetch(`${urlAPI}checkQueue/?token=${token}`);
+    getPromise
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data) {
+            console.log(data);
+            submitActionButton.classList.toggle('hidden');
+            submitMessage.classList.toggle('hidden');
+        })
+        .catch(e => {
+            console.log(e.message);
+    })
 };
 
 let checkActionQueue = () => {
@@ -196,7 +241,6 @@ let checkActionQueue = () => {
 let writeGamePage = () => {
     token = localStorage.getItem('silvertwilight');
     console.log(token);
-    retrieveStats();
     retrieveCompanies();
     retrieveVenues();
     retrieveStrategies();
@@ -221,6 +265,9 @@ let submitAction = actionInfo => {
     postPromise.then(() => {
         console.log('Actions Submitted');
         submitActionButton.classList.toggle('hidden');
+        submitMessage.classList.toggle('hidden');
+        influence.classList.toggle('hidden');
+        acquire.classList.toggle('hidden');
     });
     
 };
@@ -283,8 +330,8 @@ let submitLogin = loginInfo => {
             } else {
                 console.log('Storing Your Token...');
                 localStorage.setItem('silvertwilight', text);
-                loginPage.classList.toggle('hidden');
-                enterPage.classList.toggle('hidden');
+                token = text;
+                retrieveStats();
             }
         });
     });
@@ -309,8 +356,8 @@ let captureLoginInfo = event => {
 let showLoginPage = event => {
     event.preventDefault();
     if (token) {
-        landingPage.classList.toggle('hidden');
-        enterPage.classList.toggle('hidden');
+        hasToken = true;
+        retrieveStats();
     } else {
         landingPage.classList.toggle('hidden');
         loginPage.classList.toggle('hidden');
@@ -369,3 +416,5 @@ submitLoginButton.addEventListener('click', captureLoginInfo);
 submitAccountButton.addEventListener('click', captureAccountInfo);
 enterButton.addEventListener('click', writeGamePage);
 submitActionButton.addEventListener('click', captureActionInfo);
+money1Button.addEventListener('click', showMoneyOption1);
+power1Button.addEventListener('click', showPowerOption1);
