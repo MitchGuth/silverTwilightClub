@@ -35,7 +35,7 @@ p {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-image: url("./images/silver-twilight2.jpg");
+    background-image: url("/images/silver-twilight2.jpg");
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-repeat: no-repeat;
@@ -160,7 +160,7 @@ form {
     width: 100%;
     display: flex;
     justify-content: left;
-    background-image: url("./images/parchment.jpg");
+    background-image: url("/images/parchment.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-repeat: no-repeat;
