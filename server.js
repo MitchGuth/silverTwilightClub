@@ -84,7 +84,7 @@ let createUser = (req,res) => {
             .then (playerID => {
                 myID = playerID.id;
                 console.log("Player ID is: " + myID);
-                    db.none(`INSERT INTO st_player_stat(user_id, power, money) VALUES (${playerID.id},10,100);`)
+                    db.none(`INSERT INTO st_player_stat(user_id, power, money) VALUES (${playerID.id},10,1000);`)
                     .then( () => {
                         console.log("Player given ID and default stats");
                         res.end('SUCCESS');
