@@ -102,7 +102,7 @@ let processPowerQueue = function() {
             }
             console.log('Chance is: ' + chance);
             if (roll <= chance) {
-                resultMsg = `Success! You attempt to use ${action.strategy_name} at ${action.location_name} was a success, with a dice roll of ${roll}.`;
+                resultMsg = `Excellent! Your attempt to use ${action.strategy_name} at ${action.location_name} was a success, with a dice roll of ${roll}.`;
                 adjustedPower = action.power + 1;
                 console.log(resultMsg + " " + adjustedPower);
             } else if (roll == 100) {
