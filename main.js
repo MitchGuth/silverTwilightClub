@@ -1,4 +1,4 @@
-let urlAPI = "http://127.0.0.1:5000/";
+let urlAPI = "http://silvertwilight.club:5000/";
 let token = localStorage.getItem('silvertwilight');
 
 let firstLoginButton = document.querySelector('.login-btn');
@@ -222,20 +222,20 @@ let checkActionQueue = () => {
     })
 };
 
-let checkActionQueue = () => {
-    getPromise = fetch(`${urlAPI}checkQueue/?token=${token}`);
-    getPromise
-        .then(function(response){
-            return response.json()
-        })
-        .then(function(data) {
-            console.log(data);
-            submitActionButton.classList.toggle('hidden');
-        })
-        .catch(e => {
-            console.log(e.message);
-    })
-};
+// let checkActionQueue = () => {
+//     getPromise = fetch(`${urlAPI}checkQueue/?token=${token}`);
+//     getPromise
+//         .then(function(response){
+//             return response.json()
+//         })
+//         .then(function(data) {
+//             console.log(data);
+//             submitActionButton.classList.toggle('hidden');
+//         })
+//         .catch(e => {
+//             console.log(e.message);
+//     })
+// };
 
 
 let writeGamePage = () => {
