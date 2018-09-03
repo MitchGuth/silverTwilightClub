@@ -41,7 +41,7 @@ let getNews = (req, res) => {
     let userId = req.user.userId;
     db.many(`SELECT description FROM st_news WHERE user_id = ${userId}
     ORDER BY timestamp DESC
-    LIMIT 3;`)
+    LIMIT 2;`)
     .then(userNews => {
         console.log(userNews);
         res.end(JSON.stringify(userNews));
