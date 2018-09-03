@@ -21,7 +21,7 @@ h2 {
 }
 h3 {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 p {
     margin: 0;
@@ -59,10 +59,9 @@ p {
 .btn {
     border: none;
     margin: 1rem;
-    width: 150px;
-    height: 40px;
+    width: 10rem;
+    height: 3rem;
     font-size: 1.17rem;
-    font-weight: bold;
     color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     cursor: pointer;
@@ -95,18 +94,12 @@ p {
     height: 55%;
     width: 40%;
 }
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 .form-control {
     color:black;
     margin: .6rem;
     width: 200px;
     height: 2.5rem;
-    font-size: 1.1rem;
+    font-size: .8rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
     background-color: rgba(228, 235, 166, .5);
     border-color: rgba(228, 235, 166, .5);
@@ -132,7 +125,7 @@ form {
     width: 40%;
 }
 .greeting-box {
-    width: 20rem;
+    width: 16rem;
     color: black;
     padding: 20px 20px 20px 20px;
     margin-bottom: 15px;
@@ -143,16 +136,14 @@ form {
 .goodbye-message {
     color: rgb(46, 4, 4);;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 .game-page {
     height: 100%;
     width: 100%;
     overflow-y: auto;
     background-color: rgba(231, 235, 166, 0.7);
-    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8);
-    margin-top: 2em;  
-    margin-bottom: 2em;    
+    box-shadow: 0px 0px 7px rgba(228, 235, 166, 0.8);  
 }
 .status-bar {
     padding: 0;
@@ -207,7 +198,7 @@ form {
     color: rgb(65, 4, 4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.1rem;
-    text-align: center;
+    text-align: left;
 }
 .goodbye {
     padding: 7.5%;
@@ -300,7 +291,7 @@ form {
     padding: 0;
     width: 80%;
     height: 2.5rem;
-    font-size: 1.1rem;
+    font-size: .8rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;  
     background-color: rgba(228, 235, 166, .5);
     cursor: pointer;
@@ -319,6 +310,19 @@ form {
     }
     .game-title {
         font-size: 4em;
+        margin-bottom: 2.3rem;
+    }
+    .dropdown{
+        font-size: 1.1rem;
+    }
+    .form-control {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 350px)  {
+    .game-title {
+        font-size: 2em;
         margin-bottom: 2.3rem;
     }
 }
