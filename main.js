@@ -76,7 +76,7 @@ let retrieveScores = () => {
                 moneyColumn.appendChild(moneyRow);
                 powerColumn.appendChild(powerRow);
                 document.getElementById(`name${index}`).textContent =`${name}`;
-                document.getElementById(`money${index}`).textContent =`${money}`;
+                document.getElementById(`money${index}`).textContent =`$${money}`;
                 document.getElementById(`power${index}`).textContent =`${power}`;
             }            
         }
@@ -125,7 +125,7 @@ let retrieveStats = () => {
         username = response.name;
         welcomeMessage.textContent = username;
         usernameTitle.textContent = username;
-        currentMoney.textContent = response.money;
+        currentMoney.textContent = `$${response.money}`;
         currentPower.textContent = response.power;
         money = response.money;
         if (response.money <= 0 || response.power <= 0){
