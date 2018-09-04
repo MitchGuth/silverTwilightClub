@@ -11,6 +11,9 @@ let money1Button = document.querySelector('.money-option-1');
 let power1Button = document.querySelector('.power-option-1');
 let acquire = document.querySelector('.acquire');
 let influence = document.querySelector('.influence');
+let leaderboard = document.querySelector('.leaderboard');
+let leaderboardButton = document.querySelector('.view-leaderboard');
+
 
 // Select pages to hide or show
 let landingPage = document.querySelector('.landing-page');
@@ -31,11 +34,59 @@ let hasToken = false;
 let username;
 let companiesAndPrices = {};
 
+let showLeaderboard = event => {
+    event.preventDefault();
+    leaderboard.classList.toggle('hidden');
+}
+
+let retrieveScores = () => {
+    let nameColumn = document.querySelector('.leader-name-column'); 
+    let moneyColumn = document.querySelector('.leader-money-column'); 
+    let powerColumn = document.querySelector('.leader-power-column'); 
+    getPromise = fetch(`${urlAPI}scorecard/?token=${token}`);
+    getPromise.catch(e => {
+        console.log(e.message);
+    });
+    getPromise
+        .then(function(response){
+        //returns just the body of response
+        return response.json()
+        })
+        .then(function(response) {
+        if (response === null){
+        console.log('error no scores');
+        }
+        else {
+            console.log(response);
+            for (index = 0; index < response.length; index++) {
+                let nameRow = document.createElement("p");
+                let moneyRow = document.createElement("p");
+                let powerRow = document.createElement("p");
+                let scoreObject = response[index];
+                let name = scoreObject.name;
+                let money = scoreObject.money;
+                let power = scoreObject.power;
+                nameRow.id = `name${index}`;
+                moneyRow.id = `money${index}`;
+                powerRow.id = `power${index}`;
+                nameRow.classList.add('leader');
+                moneyRow.classList.add('leader');
+                powerRow.classList.add('leader');
+                nameColumn.appendChild(nameRow);
+                moneyColumn.appendChild(moneyRow);
+                powerColumn.appendChild(powerRow);
+                document.getElementById(`name${index}`).textContent =`${name}`;
+                document.getElementById(`money${index}`).textContent =`$${money}`;
+                document.getElementById(`power${index}`).textContent =`${power}`;
+            }            
+        }
+    });
+};
+
 let showMoneyOption1 = event => {
     event.preventDefault();
     acquire.classList.toggle('hidden');
 }
-
 
 let showPowerOption1 = event => {
     event.preventDefault();
@@ -74,7 +125,7 @@ let retrieveStats = () => {
         username = response.name;
         welcomeMessage.textContent = username;
         usernameTitle.textContent = username;
-        currentMoney.textContent = response.money;
+        currentMoney.textContent = `$${response.money}`;
         currentPower.textContent = response.power;
         money = response.money;
         if (response.money <= 0 || response.power <= 0){
@@ -245,6 +296,7 @@ let writeGamePage = () => {
     retrieveVenues();
     retrieveStrategies();
     retrieveNews();
+    retrieveScores();
     checkActionQueue();
 };
 
@@ -418,3 +470,4 @@ enterButton.addEventListener('click', writeGamePage);
 submitActionButton.addEventListener('click', captureActionInfo);
 money1Button.addEventListener('click', showMoneyOption1);
 power1Button.addEventListener('click', showPowerOption1);
+leaderboardButton.addEventListener('click', showLeaderboard); 
