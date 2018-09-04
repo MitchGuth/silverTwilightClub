@@ -185,6 +185,20 @@ let stratList = (req, res, next) => {
     });
 }
 
+let getScorecard = (req, res, next) => {
+    db.any(`SELECT st_player.name, st_player_stat.money, st_player_stat.power
+        FROM st_player_stat
+        INNER JOIN st_player
+        ON st_player_stat.id = st_player.id
+        ORDER BY st_player_stat.money DESC;`)
+    .then(function(data) {
+        res.end(JSON.stringify(data));
+    })
+    .catch(function(e) {
+        console.log("Splode: " + e);
+    });
+}
+
 let validateToken = (req, res, next) => {
     let token = req.query.token;
     let isValid = false;
@@ -219,6 +233,7 @@ server.get('/checkQueue/', validateToken, checkQueue);
 server.get('/companyList/', validateToken, companyList);
 server.get('/venueList/', validateToken, venueList);
 server.get('/stratList/', validateToken, stratList);
+server.get('/scorecard/', getScorecard);
 server.post('/login', doLogin);
 server.post('/createUser', createUser);
 server.post('/createAction/', validateToken, createAction);
