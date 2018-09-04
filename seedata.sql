@@ -39,7 +39,7 @@ INSERT INTO st_venue (location, bonus_strategy) VALUES
 ('Whistle Stop Downs Race Track', 9),
 ('Capital Field Sporting Arena', 10),
 ('Scarlet McNairs House of Ill Repute', 11),
-('Broom Closet Boozery', 6;
+('Broom Closet Boozery', 6);
 
 INSERT INTO st_strategy (id, strategy) VALUES
 (1, 'Intimidate'),
